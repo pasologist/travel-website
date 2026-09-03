@@ -1,0 +1,77 @@
+<!-- C&R Luxurious Travel · CONTACT · form posts to the plugin's inquiry handler (or opens email in previews); ?stay=<id> preselects a property -->
+<div class="cr" data-page="contact">
+
+<header class="page-hero" style="--hero-img:url('https://cdn2.paraty.es/lhvc-corpo/images/9b1f3e47dee8239=s1900')">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a data-href="home">Home</a> &nbsp;/&nbsp; Contact</div>
+    <div class="eyebrow">Plan Your Escape</div>
+    <h1>We’re <span class="script">in touch.</span></h1>
+    <p class="sub">Need help with your next vacation? A C&amp;R advisor answers every inquiry personally, usually within one business day.</p>
+  </div>
+</header>
+
+<section class="bg-sand" id="inquiry">
+  <div class="split">
+    <div class="form-wrap reveal">
+      <div class="eyebrow">Inquiry</div>
+      <h2>Tell us about your trip.</h2>
+      <p>The more you share, the better the proposal. Dates can be approximate.</p>
+      <div class="notice" id="crFormNotice" hidden></div>
+      <form class="form" data-cr-form novalidate>
+        <input type="hidden" name="action" value="cr_inquiry">
+        <input type="hidden" name="cr_redirect" value="">
+        <input type="hidden" name="cr_t" value="">
+        <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div><label for="cName">Name</label><input id="cName" type="text" name="name" data-label="Name" placeholder="Your name" required autocomplete="name"></div>
+        <div><label for="cEmail">Email</label><input id="cEmail" type="email" name="email" data-label="Email" placeholder="you@example.com" required autocomplete="email"></div>
+        <div><label for="cPhone">Phone</label><input id="cPhone" type="tel" name="phone" data-label="Phone" placeholder="+1" autocomplete="tel"></div>
+        <div><label for="cSubject">Subject</label><select id="cSubject" name="subject" data-label="Subject"><option>Reservations</option><option>Private Villas</option><option>Weddings &amp; Events</option><option>Spa &amp; Dining</option><option>Excursions</option><option>Other</option></select></div>
+        <div><label for="cProp">Property</label><select id="cProp" name="property" data-label="Property" data-properties></select></div>
+        <div><label for="cDates">Travel dates</label><input id="cDates" type="text" name="dates" data-label="Dates" placeholder="e.g. Feb 10–17, flexible"></div>
+        <div><label for="cGuests">Travelers</label><select id="cGuests" name="guests" data-label="Travelers"><option value="">Select</option><option>1</option><option>2</option><option>3–4</option><option>5–8</option><option>9–14</option><option>15+</option></select></div>
+        <div class="full"><label for="cMsg">Message</label><textarea id="cMsg" name="message" data-label="Message" placeholder="Occasion, must-haves, questions"></textarea></div>
+        <div class="full"><label class="check"><input type="checkbox" name="consent" value="yes" required> I agree that C&amp;R Luxurious Travel may contact me about this inquiry and store my details as described in the <a data-href="home" data-hash="privacy">privacy notice</a>.</label></div>
+        <div class="full"><button class="btn btn-primary" type="submit">Send Inquiry</button></div>
+      </form>
+    </div>
+    <div>
+      <div class="aside-card reveal">
+        <h3>Concierge desk</h3>
+        <p><a href="mailto:concierge@crluxurioustravel.com">concierge@crluxurioustravel.com</a><br><a href="tel:+10000000000">+1 (000) 000-0000</a></p>
+        <div class="kv"><span>Advisors</span><span>Daily, 8am–8pm ET</span></div>
+        <div class="kv"><span>Reply time</span><span>Within one business day</span></div>
+        <div class="kv"><span>During your stay</span><span>24/7 concierge line</span></div>
+      </div>
+      <div class="aside-card reveal">
+        <h3>The resorts</h3>
+        <p><strong>Puerto Plata</strong><br>Cofresí Beach #1, Puerto Plata 57000, Dominican Republic<br>Ten properties on one beachfront estate, ten minutes from Puerto Plata (POP) airport.</p>
+        <p><strong>Cabarete</strong><br>Cabarete Bay, North Coast, Dominican Republic<br>Forty minutes east along the coast road.</p>
+      </div>
+      <div class="aside-card reveal">
+        <h3>Getting there</h3>
+        <div class="kv"><span>Nearest airport</span><span>Puerto Plata (POP)</span></div>
+        <div class="kv"><span>Alternative</span><span>Santiago (STI), 90 min</span></div>
+        <div class="kv"><span>Transfers</span><span>Arranged by C&amp;R</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight bg-cream">
+  <div class="map reveal"><iframe title="Map of Cofresí Beach, Puerto Plata" src="https://www.google.com/maps?q=Cofresi+Beach,+Puerto+Plata,+Dominican+Republic&z=13&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+</section>
+
+<section class="bg-sand">
+  <div class="section-head reveal">
+    <div class="eyebrow center">Before You Ask</div>
+    <h2 class="section-title center">Common <span class="script">questions.</span></h2>
+  </div>
+  <div class="faq reveal">
+    <details><summary>How does booking through C&amp;R work?</summary><p>You send an inquiry, an advisor proposes stays and pricing, you confirm, and we secure the reservation along with dining, spa and excursion preferences. You deal with one person throughout.</p></details>
+    <details><summary>Are the rates on this site final?</summary><p>No. The “from” rates are the resorts’ published starting prices per night in USD. Your proposal states the exact rate for your dates, room category and plan, plus any offer that applies.</p></details>
+    <details><summary>What happens if I need to change or cancel?</summary><p>Each rate carries the resorts’ booking conditions, which we state in writing before you confirm. Flexible rates can usually be changed; non-refundable rates cannot.</p></details>
+    <details><summary>Can you arrange flights and transfers?</summary><p>Yes. Ask for a bundled flight-and-hotel quote; private airport transfers are included in every proposal.</p></details>
+  </div>
+</section>
+
+</div>

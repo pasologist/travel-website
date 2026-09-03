@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiences Â· C&amp;R Luxurious Travel (preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=Parisienne&display=swap" rel="stylesheet">
+<!-- PIECE 1: global styles (assets/cr-style.css) -->
+<style>
+@charset "UTF-8";
+/* ==========================================================================
+   C&R LUXURIOUS TRAVEL · PIECE 1 · GLOBAL STYLES  (v1.0.0)
+   --------------------------------------------------------------------------
+   Install ONCE, site-wide. The C&R plugin loads this file automatically.
+   Manual route: paste the whole file into WPCode → "CSS Snippet" (Auto
+   Insert · Site Wide Header) or Appearance → Customize → Additional CSS.
+
+   Every selector is scoped to the `.cr` wrapper that each page's HTML starts
+   with, so WordPress theme styles never bleed in (and ours never bleed out).
+
+   Palette  : warm sand + cream · ink text · Caribbean teal · brass · terracotta
+   Fonts    : Cormorant Garamond (headings) · Outfit (text) · Parisienne (script)
+   Sections : 0 tokens/reset · 1 nav · 2 buttons · 3 shared bits · 4 heroes
+              5 home · 6 stays grid · 7 bands & cards · 8 content modules
+              9 property view · 10 forms · 11 lightbox · 12 footer · 13 responsive
+   ========================================================================== */
+
+/* ---------- 0. Tokens & reset ---------- */
+html.cr-html{font-size:16px!important;scroll-behavior:smooth}
+body.cr-body{margin:0;padding:0;background:#F8F2E7;overflow-x:hidden}
+.cr{
+  --sand:#F8F2E7;--sand-2:#F1E7D5;--sand-3:#E7DAC1;--cream:#FFFCF6;
+  --ink:#2B2117;--ink-soft:#5A4C39;--teal:#3E7C76;--teal-deep:#2E5F5A;
+  --brass:#B58A4B;--brass-deep:#977033;--clay:#BC6A45;--gold:#F0D49A;--gold-soft:#EBD9B8;
+  --shadow:0 26px 60px -24px rgba(60,40,15,.34);--shadow-sm:0 14px 34px -16px rgba(60,40,15,.26);
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Outfit',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --script:'Parisienne','Brush Script MT',cursive;
+  --ease:cubic-bezier(.16,1,.3,1);
+  display:block;position:relative;width:100%;max-width:none;margin:0;padding:0;
+  font-family:var(--sans);font-size:1rem;font-weight:300;line-height:1.65;color:var(--ink);background:var(--sand);
+  -webkit-font-smoothing:antialiased;overflow-x:clip
+}
+body .cr *,body .cr *::before,body .cr *::after{box-sizing:border-box}
+body .cr h1,body .cr h2,body .cr h3,body .cr h4,body .cr p,body .cr ul,body .cr ol,body .cr li,body .cr figure,body .cr blockquote,body .cr fieldset{margin:0;padding:0;border:0}
+body .cr ul,body .cr ol{list-style:none}
+body .cr img{display:block;max-width:100%;height:auto;border:0;border-radius:0;box-shadow:none}
+body .cr a{color:inherit;text-decoration:none;transition:color .3s;box-shadow:none}
+body .cr a:hover,body .cr a:focus{text-decoration:none}
+body .cr h1,body .cr h2,body .cr h3,body .cr h4,body .cr .serif{font-family:var(--serif);font-weight:500;line-height:1.07;letter-spacing:0;color:inherit;text-transform:none}
+body .cr .script{font-family:var(--script)!important;font-weight:400!important;font-style:normal;line-height:1.2;display:inline-block;overflow:visible;text-transform:none;letter-spacing:0}
+body .cr button,body .cr input,body .cr select,body .cr textarea{font-family:var(--sans);font-size:1rem;color:var(--ink);line-height:1.4;border-radius:0}
+body .cr button{background:none;border:0;cursor:pointer;padding:0;color:inherit}
+body .cr iframe{display:block;border:0;max-width:100%}
+body .cr [id]{scroll-margin-top:84px}
+.cr ::selection{background:#B58A4B;color:#FFFCF6}
+body .cr .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body .cr .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+
+/* ---------- 1. Nav ---------- */
+.cr .nav{position:fixed;top:0;left:0;right:0;z-index:2000;display:flex;align-items:center;justify-content:space-between;padding:22px 6vw;transition:background .4s ease,padding .4s ease,box-shadow .4s ease}
+.cr .nav.scrolled,.cr .nav.solid{background:rgba(248,242,231,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:13px 6vw;box-shadow:0 1px 0 rgba(181,138,75,.22)}
+body.admin-bar .cr .nav{top:32px}
+@media (max-width:782px){body.admin-bar .cr .nav{top:46px}}
+.cr .logo{display:flex;align-items:center;gap:11px;transition:opacity .3s;cursor:pointer}
+.cr .logo:hover{opacity:.85}
+.cr .logo-mark{width:52px;height:52px;flex-shrink:0;border-radius:50%;border:1px solid rgba(255,252,246,.38);display:flex;align-items:center;justify-content:center;position:relative;transition:all .4s}
+.cr .logo-mark::before{content:'';position:absolute;inset:4px;border-radius:50%;border:.5px solid rgba(255,252,246,.2);pointer-events:none;transition:border-color .4s}
+.cr .logo-mark .lm-text{font-family:var(--serif);font-size:1.05rem;font-weight:600;color:var(--cream);display:flex;align-items:center;line-height:1;transition:color .4s}
+.cr .logo-mark .lm-amp{font-family:var(--script)!important;font-style:normal;font-size:.9rem;color:var(--brass);margin:0 1px;line-height:1}
+.cr .nav.scrolled .logo-mark,.cr .nav.solid .logo-mark{width:44px;height:44px;border-color:var(--sand-3)}
+.cr .nav.scrolled .logo-mark::before,.cr .nav.solid .logo-mark::before{border-color:rgba(231,218,193,.5)}
+.cr .nav.scrolled .logo-mark .lm-text,.cr .nav.solid .logo-mark .lm-text{color:var(--ink)}
+.cr .logo-words{display:flex;flex-direction:column;gap:1px}
+.cr .logo-words .lw-name{font-family:var(--serif);font-size:1.25rem;font-weight:600;letter-spacing:1.5px;color:var(--cream);line-height:1;transition:color .4s;text-transform:uppercase}
+.cr .logo-words .lw-sub{font-family:var(--sans);font-size:.52rem;letter-spacing:3.5px;font-weight:300;text-transform:uppercase;color:rgba(255,252,246,.72);line-height:1;transition:color .4s}
+.cr .nav.scrolled .logo-words .lw-name,.cr .nav.solid .logo-words .lw-name{color:var(--ink)}
+.cr .nav.scrolled .logo-words .lw-sub,.cr .nav.solid .logo-words .lw-sub{color:var(--ink-soft)}
+.cr .nav-links{display:flex;gap:30px;align-items:center;list-style:none;margin:0;padding:0}
+.cr .nav-links li{margin:0;padding:0}
+.cr .nav-links a{text-decoration:none;color:rgba(255,252,246,.9);font-size:.76rem;letter-spacing:1.6px;text-transform:uppercase;font-weight:400;transition:color .3s;position:relative;cursor:pointer;white-space:nowrap}
+.cr .nav.scrolled .nav-links a,.cr .nav.solid .nav-links a{color:var(--ink-soft)}
+.cr .nav-links a:not(.nav-cta):hover,.cr .nav-links a:not(.nav-cta)[aria-current="page"]{color:var(--gold)}
+.cr .nav.scrolled .nav-links a:not(.nav-cta):hover,.cr .nav.solid .nav-links a:not(.nav-cta):hover,.cr .nav.scrolled .nav-links a:not(.nav-cta)[aria-current="page"],.cr .nav.solid .nav-links a:not(.nav-cta)[aria-current="page"]{color:var(--brass-deep)}
+.cr .nav-links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--brass);transition:width .3s}
+.cr .nav-links a:not(.nav-cta):hover::after,.cr .nav-links a:not(.nav-cta)[aria-current="page"]::after{width:100%}
+.cr .nav-cta{border:1px solid rgba(255,252,246,.55);padding:10px 20px;border-radius:2px;color:var(--cream)!important;transition:all .3s}
+.cr .nav.scrolled .nav-cta,.cr .nav.solid .nav-cta{border-color:var(--brass);color:var(--brass-deep)!important}
+.cr .nav-cta:hover{background:var(--brass)!important;border-color:var(--brass)!important;color:var(--cream)!important}
+.cr .menu-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;z-index:2002;padding:6px}
+.cr .menu-btn span{width:26px;height:2px;background:var(--cream);transition:.3s;display:block}
+.cr .nav.scrolled .menu-btn span,.cr .nav.solid .menu-btn span{background:var(--ink)}
+.cr .nav.menu-open .menu-btn span{background:var(--cream)}
+.cr .nav.menu-open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.cr .nav.menu-open .menu-btn span:nth-child(2){opacity:0}
+.cr .nav.menu-open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.cr .nav-backdrop{display:none;position:fixed;inset:0;background:rgba(43,33,23,.45);z-index:1999}
+.cr .nav.menu-open ~ .nav-backdrop{display:block}
+
+/* ---------- 2. Buttons ---------- */
+.cr .btn{padding:16px 38px;border-radius:2px;text-decoration:none;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;font-weight:500;transition:all .35s;display:inline-block;cursor:pointer;border:1px solid transparent;font-family:var(--sans);line-height:1.3;text-align:center;background:none}
+.cr .btn-primary{background:var(--brass);color:var(--cream);border-color:var(--brass)}
+.cr .btn-primary:hover{background:var(--brass-deep);border-color:var(--brass-deep);color:var(--cream);transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(181,138,75,.5)}
+.cr .btn-ghost{border:1px solid rgba(255,252,246,.6);color:var(--cream)}
+.cr .btn-ghost:hover{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.cr .btn-ink{border:1px solid var(--sand-3);color:var(--ink)}
+.cr .btn-ink:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.cr .btn-teal{background:var(--teal);color:var(--cream);border-color:var(--teal)}
+.cr .btn-teal:hover{background:var(--teal-deep);border-color:var(--teal-deep);color:var(--cream);transform:translateY(-2px)}
+.cr .btn-sm{padding:12px 26px;font-size:.7rem}
+.cr .btn-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.cr .btn-row.center{justify-content:center}
+.cr .link{font-size:.76rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:gap .3s,color .3s}
+.cr .link::after{content:'→'}
+.cr .link:hover{gap:14px;color:var(--brass-deep)}
+
+/* ---------- 3. Shared bits ---------- */
+.cr section,.cr .section{padding:118px 6vw;position:relative}
+.cr .section-tight{padding:80px 6vw}
+.cr .bg-cream{background:var(--cream)}
+.cr .bg-sand{background:var(--sand)}
+.cr .bg-sand2{background:var(--sand-2)}
+.cr .eyebrow{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--brass-deep);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:12px;font-family:var(--sans)}
+.cr .eyebrow.center{justify-content:center}
+.cr .eyebrow::before{content:'';width:34px;height:1px;background:var(--brass);flex-shrink:0}
+.cr .eyebrow.center::after{content:'';width:34px;height:1px;background:var(--brass);flex-shrink:0}
+.cr .section-title{font-size:clamp(2.3rem,4.4vw,3.6rem);margin-bottom:22px;max-width:780px;color:var(--ink)}
+.cr .section-title.center{margin-left:auto;margin-right:auto;text-align:center}
+.cr .section-title .script{color:var(--clay);font-size:1.32em}
+.cr .section-head{text-align:center;margin-bottom:56px}
+.cr .section-head .section-title{margin-left:auto;margin-right:auto}
+.cr .lead{max-width:620px;color:var(--ink-soft);font-size:1.1rem}
+.cr .lead.center{margin-left:auto;margin-right:auto;text-align:center}
+.cr .prose p{color:var(--ink-soft);font-size:1.08rem;margin-bottom:20px}
+.cr .prose p:last-child{margin-bottom:0}
+.cr .prose strong{color:var(--ink);font-weight:400}
+.cr .txt-center{text-align:center}
+.cr .mt-40{margin-top:40px}.cr .mt-56{margin-top:56px}.cr .mb-40{margin-bottom:40px}
+.cr .note{font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+.cr .reveal{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.cr .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.cr .reveal{opacity:1;transform:none;transition:none}}
+.cr .pill{display:inline-block;font-size:.64rem;letter-spacing:1.2px;text-transform:uppercase;padding:6px 12px;border-radius:30px;font-weight:600;line-height:1.2}
+.cr .pill-teal{background:rgba(255,252,246,.92);color:var(--teal-deep)}
+.cr .pill-brass{background:var(--brass);color:var(--cream)}
+.cr .pill-outline{border:1px solid var(--sand-3);color:var(--ink-soft)}
+.cr .divider{width:64px;height:1px;background:var(--brass);margin:28px auto}
+
+/* ---------- 4. Heroes ---------- */
+.cr .hero{height:100vh;min-height:650px;position:relative;display:flex;align-items:center;background-image:linear-gradient(180deg,rgba(43,33,23,.42) 0%,rgba(43,33,23,.2) 38%,rgba(43,33,23,.78) 100%),var(--hero-img);background-position:center;background-size:cover;background-repeat:no-repeat;margin:0}
+@media (min-width:761px){.cr .hero{background-attachment:fixed,fixed}}
+.cr .hero-inner{padding:0 6vw;max-width:1020px;position:relative;z-index:1}
+.cr .hero-tag{font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:24px;opacity:0;animation:crRise .9s .2s forwards;display:flex;align-items:center;gap:14px}
+.cr .hero-tag::before{content:'';width:48px;height:1px;background:var(--brass)}
+.cr .hero-welcome{font-family:var(--script)!important;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--gold);opacity:0;animation:crRise 1s .3s forwards;line-height:1.1;margin-bottom:10px;display:block}
+.cr h1.hero-title{font-size:clamp(3rem,7.2vw,6.2rem);font-weight:500;margin-bottom:22px;color:#F6EACD;text-shadow:0 2px 6px rgba(43,33,23,.35);opacity:0;animation:crRise 1s .4s forwards}
+.cr h1.hero-title .script{color:inherit;font-size:1.25em;line-height:1.15}
+.cr p.hero-text{font-size:clamp(1.05rem,1.6vw,1.35rem);max-width:580px;color:#F6EACD;text-shadow:0 2px 6px rgba(43,33,23,.35);opacity:0;animation:crRise 1s .6s forwards}
+.cr .hero-btns{display:flex;gap:18px;margin-top:42px;flex-wrap:wrap;opacity:0;animation:crRise 1s .8s forwards}
+.cr .scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);color:rgba(255,252,246,.85);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;animation:crBob 2s infinite}
+@keyframes crRise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes crBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+/* Inner-page hero (shorter, bottom-aligned) */
+.cr .page-hero{height:64vh;min-height:460px;position:relative;display:flex;align-items:flex-end;background-image:linear-gradient(180deg,rgba(43,33,23,.42) 0%,rgba(43,33,23,.12) 45%,rgba(43,33,23,.88) 100%),var(--hero-img);background-position:center;background-size:cover;background-repeat:no-repeat;margin:0}
+.cr .page-hero-inner{position:relative;z-index:1;padding:0 6vw 64px;max-width:960px}
+.cr .breadcrumb{font-size:.74rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,252,246,.85);margin-bottom:18px}
+.cr .breadcrumb a{color:var(--gold);text-decoration:none;cursor:pointer}
+.cr .breadcrumb a:hover{color:var(--cream)}
+.cr .page-hero .eyebrow{color:var(--gold-soft)}
+.cr .page-hero .eyebrow::before{background:var(--gold-soft)}
+.cr .page-hero h1{font-size:clamp(2.6rem,6vw,5rem);color:var(--cream);margin-bottom:8px;text-shadow:0 2px 8px rgba(43,33,23,.35)}
+.cr .page-hero h1 .script{color:var(--gold);font-size:1.2em}
+.cr .page-hero .tagline{font-family:var(--script)!important;font-size:clamp(1.6rem,3.2vw,2.5rem);color:var(--gold);line-height:1.15}
+.cr .page-hero .sub{font-size:1.05rem;color:rgba(255,252,246,.9);max-width:600px;margin-top:14px}
+
+/* ---------- 5. Home: intro & stats ---------- */
+.cr .intro{background:var(--cream);display:grid;grid-template-columns:1.05fr 1fr;gap:80px;align-items:center}
+.cr .intro-text p{color:var(--ink-soft);font-size:1.08rem;margin-bottom:20px;max-width:520px}
+.cr .intro-text p strong{color:var(--ink);font-weight:400}
+.cr .intro-stats{display:flex;gap:42px;margin-top:44px;flex-wrap:wrap}
+.cr .stat .num{font-family:var(--serif);font-size:3rem;color:var(--teal);font-weight:600;line-height:1}
+.cr .stat .lbl{font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
+.cr .intro-img{position:relative;height:560px}
+.cr .intro-img img{width:100%;height:100%;object-fit:cover;border-radius:3px;box-shadow:var(--shadow)}
+.cr .intro-img .badge{position:absolute;bottom:-28px;left:-28px;background:var(--teal);color:var(--cream);padding:26px 30px;border-radius:3px;box-shadow:var(--shadow);max-width:235px}
+.cr .intro-img .badge .script{font-size:1.7rem;color:var(--sand-2);display:block;margin-bottom:2px;line-height:1.25}
+.cr .intro-img .badge span.t{font-size:.84rem;color:rgba(255,252,246,.9);line-height:1.45;display:block}
+
+/* ---------- 6. Stays grid & filters ---------- */
+.cr .filter-bar,.cr .tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:36px 0 54px}
+.cr .filter-btn,.cr .tab-btn{background:transparent;border:1px solid var(--sand-3);color:var(--ink-soft);padding:11px 26px;border-radius:40px;font-family:var(--sans);font-size:.8rem;letter-spacing:1px;cursor:pointer;transition:all .3s;text-transform:uppercase;font-weight:400;line-height:1.2}
+.cr .filter-btn:hover,.cr .tab-btn:hover{border-color:var(--teal);color:var(--teal)}
+.cr .filter-btn.active,.cr .tab-btn.active{background:var(--teal);border-color:var(--teal);color:var(--cream)}
+.cr .tab-panel{display:none}
+.cr .tab-panel.active{display:block}
+.cr .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;text-align:left}
+.cr .grid-2{grid-template-columns:repeat(2,1fr)}
+.cr .grid-4{grid-template-columns:repeat(4,1fr)}
+.cr .card{background:var(--cream);border-radius:4px;box-shadow:var(--shadow-sm);transition:transform .5s var(--ease),box-shadow .5s,border-color .4s;cursor:pointer;display:flex;flex-direction:column;border:1px solid var(--sand-3);overflow:hidden;color:var(--ink)}
+.cr .card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--brass)}
+.cr .card.hidden{display:none}
+.cr .card-img{height:230px;overflow:hidden;position:relative;background:var(--sand-2)}
+.cr .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.cr .card:hover .card-img img{transform:scale(1.07)}
+.cr .card-cat{position:absolute;top:15px;left:15px;background:rgba(255,252,246,.92);color:var(--teal-deep);font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;padding:7px 13px;border-radius:30px;font-weight:600;line-height:1.2}
+.cr .card-tier{position:absolute;top:15px;right:15px;background:var(--brass);color:var(--cream);font-size:.64rem;letter-spacing:1px;text-transform:uppercase;padding:7px 12px;border-radius:30px;font-weight:600;line-height:1.2}
+.cr .card-body{padding:26px 26px 30px;flex:1;display:flex;flex-direction:column}
+.cr .card-body .loc{font-size:.74rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass-deep);margin-bottom:7px}
+.cr .card-body .ctag{font-family:var(--script)!important;font-size:1.35rem;color:var(--clay);line-height:1.25;margin-bottom:6px}
+.cr .card-body h3{font-size:1.6rem;margin-bottom:10px;color:var(--ink)}
+.cr .card-body p{color:var(--ink-soft);font-size:.93rem;flex:1}
+.cr .card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:18px;border-top:1px solid var(--sand-3);gap:10px}
+.cr .card-foot .price{font-family:var(--serif);font-size:1.25rem;color:var(--teal);font-weight:600}
+.cr .card-foot .price small{font-family:var(--sans);font-size:.7rem;color:var(--ink-soft);letter-spacing:.5px;font-weight:300}
+.cr .card-foot .more{font-size:.76rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);font-weight:500;display:flex;align-items:center;gap:7px;transition:gap .3s,color .3s;white-space:nowrap}
+.cr .card:hover .card-foot .more{gap:13px;color:var(--brass-deep)}
+.cr .empty{text-align:center;color:var(--ink-soft);padding:40px 0;grid-column:1/-1}
+
+/* ---------- 7. Bands, why-cards, CTA ---------- */
+.cr .band{background-image:linear-gradient(135deg,rgba(46,95,90,.9),rgba(43,33,23,.82)),var(--band-img);background-position:center;background-size:cover;background-repeat:no-repeat;text-align:center;color:var(--cream)}
+@media (min-width:761px){.cr .band{background-attachment:fixed,fixed}}
+.cr .band .section-title{margin:0 auto 22px;color:var(--cream)}
+.cr .band .section-title .script{color:var(--sand-2)}
+.cr .band .eyebrow{color:var(--gold-soft)}
+.cr .band .eyebrow::before,.cr .band .eyebrow.center::after{background:var(--gold-soft)}
+.cr .band .lead{margin:0 auto 60px;color:rgba(255,252,246,.9);font-size:1.1rem}
+.cr .band .btn-primary{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.cr .band .btn-primary:hover{background:#fff;border-color:#fff}
+.cr .ex-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;max-width:1000px;margin:0 auto}
+.cr .ex-num{font-family:var(--serif);font-size:3.4rem;color:var(--sand-2);font-weight:600;line-height:1}
+.cr .ex-lbl{font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;margin-top:12px;color:rgba(255,252,246,.9)}
+.cr .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.cr .why-card{padding:42px 34px;border:1px solid var(--sand-3);border-radius:4px;transition:all .4s;background:var(--sand)}
+.cr .bg-sand .why-card{background:var(--cream)}
+.cr .why-card:hover{border-color:var(--brass);transform:translateY(-5px);box-shadow:var(--shadow-sm)}
+.cr .why-card .ico{width:52px;height:52px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:1.5rem;color:var(--brass);font-family:var(--serif);font-weight:600;border:1px solid var(--sand-3)}
+.cr .bg-sand .why-card .ico{background:var(--sand)}
+.cr .why-card h3{font-size:1.5rem;margin-bottom:11px;color:var(--ink)}
+.cr .why-card p{color:var(--ink-soft);font-size:.94rem}
+.cr .why-card ul{margin-top:12px}
+.cr .why-card li{font-size:.9rem;color:var(--ink-soft);padding:6px 0;border-top:1px solid var(--sand-3);display:flex;gap:10px}
+.cr .why-card li::before{content:'◆';color:var(--brass);font-size:.55rem;line-height:2.2;flex-shrink:0}
+.cr .cta{background:var(--teal);color:var(--cream);text-align:center;padding:96px 6vw}
+.cr .cta .script{font-size:clamp(2.6rem,5vw,4rem);color:var(--sand-2);display:block;line-height:1.25;margin-bottom:6px}
+.cr .cta h2{font-size:clamp(1.9rem,3.4vw,2.7rem);margin-bottom:18px;color:var(--cream)}
+.cr .cta p{max-width:520px;margin:0 auto 34px;font-size:1.08rem;color:rgba(255,252,246,.88)}
+.cr .cta .btn-primary{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.cr .cta .btn-primary:hover{background:#fff;border-color:#fff}
+.cr .cta .btn-ghost{margin-left:6px}
+
+/* ---------- 8. Content modules ---------- */
+/* Feature row (image + text, alternate with .flip) */
+.cr .feature{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.cr .feature + .feature{margin-top:96px}
+.cr .feature.flip .feature-img{order:2}
+.cr .feature-img{position:relative}
+.cr .feature-img img{width:100%;height:520px;object-fit:cover;border-radius:3px;box-shadow:var(--shadow)}
+.cr .feature-img .tag{position:absolute;top:22px;left:22px;background:rgba(255,252,246,.92);color:var(--teal-deep);font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;padding:8px 14px;border-radius:30px;font-weight:600}
+.cr .feature-text h2{font-size:clamp(2rem,3.6vw,3rem);margin-bottom:18px;color:var(--ink)}
+.cr .feature-text h2 .script{color:var(--clay);font-size:1.3em}
+.cr .feature-text p{color:var(--ink-soft);font-size:1.06rem;margin-bottom:18px}
+.cr .feature-text .btn{margin-top:10px}
+/* Checklist */
+.cr .checks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 28px;margin-top:20px}
+.cr .checks li{font-size:.95rem;color:var(--ink);display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+.cr .checks li::before{content:'✓';color:var(--teal);font-weight:600;flex-shrink:0}
+/* Icon grid ("what's included") */
+.cr .inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cr .inc{background:var(--cream);border:1px solid var(--sand-3);border-radius:4px;padding:34px 30px;transition:all .4s}
+.cr .inc:hover{border-color:var(--brass);box-shadow:var(--shadow-sm);transform:translateY(-4px)}
+.cr .inc .ico{font-family:var(--serif);font-size:1.6rem;color:var(--brass);margin-bottom:14px;line-height:1}
+.cr .inc h3{font-size:1.4rem;margin-bottom:10px}
+.cr .inc p{color:var(--ink-soft);font-size:.93rem}
+.cr .inc ul{margin-top:10px}
+.cr .inc li{font-size:.88rem;color:var(--ink-soft);padding:4px 0;display:flex;gap:9px}
+.cr .inc li::before{content:'·';color:var(--brass);font-weight:700}
+/* Venue / experience cards (dining, spa, excursions) */
+.cr .venue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cr .venue{background:var(--cream);border:1px solid var(--sand-3);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s,border-color .4s}
+.cr .venue:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--brass)}
+.cr .venue.hidden{display:none}
+.cr .venue-img{height:210px;overflow:hidden;position:relative;background:var(--sand-2)}
+.cr .venue-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.cr .venue:hover .venue-img img{transform:scale(1.06)}
+.cr .venue-img .pill{position:absolute;top:14px;left:14px}
+.cr .venue-img .pill + .pill{left:auto;right:14px}
+.cr .venue-b{padding:22px 24px 26px;flex:1;display:flex;flex-direction:column}
+.cr .venue .meta{font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass-deep);margin-bottom:6px}
+.cr .venue h3{font-size:1.45rem;margin-bottom:8px;color:var(--ink)}
+.cr .venue p{color:var(--ink-soft);font-size:.92rem;flex:1}
+.cr .venue .hours{font-size:.78rem;color:var(--ink-soft);border-top:1px dashed var(--sand-3);margin-top:14px;padding-top:12px;line-height:1.5}
+.cr .venue .hours b{font-weight:500;color:var(--ink)}
+.cr .venue-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--sand-3)}
+.cr .venue-foot .price{font-family:var(--serif);font-size:1.2rem;color:var(--teal);font-weight:600}
+.cr .venue-foot .price small{font-family:var(--sans);font-size:.68rem;color:var(--ink-soft);font-weight:300;letter-spacing:.5px}
+.cr .venue-foot .dur{font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);text-align:right}
+/* Menu lists (spa) */
+.cr .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px 64px}
+.cr .menu-cat h3{font-size:1.6rem;margin-bottom:6px}
+.cr .menu-cat .cat-sub{font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass-deep);margin-bottom:12px}
+.cr .menu-cat li{padding:11px 0;border-bottom:1px solid var(--sand-3);font-size:.95rem;display:flex;justify-content:space-between;gap:16px}
+.cr .menu-cat li span{color:var(--ink-soft);font-size:.82rem;white-space:nowrap}
+/* Packages (weddings) */
+.cr .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cr .pkg{background:var(--cream);border:1px solid var(--sand-3);border-radius:4px;padding:36px 30px;display:flex;flex-direction:column;transition:all .4s;position:relative}
+.cr .pkg:hover{border-color:var(--brass);box-shadow:var(--shadow-sm);transform:translateY(-4px)}
+.cr .pkg.featured{border-color:var(--brass);box-shadow:var(--shadow)}
+.cr .pkg.featured::before{content:'Most requested';position:absolute;top:-12px;left:30px;background:var(--brass);color:var(--cream);font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border-radius:30px;font-weight:600}
+.cr .pkg .pkg-for{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass-deep);margin-bottom:8px}
+.cr .pkg h3{font-size:1.7rem;margin-bottom:6px}
+.cr .pkg .pkg-price{font-family:var(--serif);font-size:2.1rem;color:var(--teal);font-weight:600;line-height:1;margin:10px 0 18px}
+.cr .pkg .pkg-price small{font-family:var(--sans);font-size:.72rem;color:var(--ink-soft);font-weight:300;letter-spacing:.5px}
+.cr .pkg ul{flex:1}
+.cr .pkg li{padding:9px 0;border-top:1px solid var(--sand-3);font-size:.92rem;color:var(--ink);display:flex;gap:10px}
+.cr .pkg li::before{content:'◆';color:var(--brass);font-size:.55rem;line-height:2.4;flex-shrink:0}
+.cr .pkg .btn{margin-top:24px;width:100%}
+/* Offers */
+.cr .offer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.cr .offer{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--cream);border:1px solid var(--sand-3);border-radius:4px;overflow:hidden;transition:all .4s}
+.cr .offer:hover{border-color:var(--brass);box-shadow:var(--shadow)}
+.cr .offer-img{min-height:260px;background:var(--sand-2)}
+.cr .offer-img img{width:100%;height:100%;object-fit:cover}
+.cr .offer-b{padding:32px 30px;display:flex;flex-direction:column}
+.cr .offer .big{font-family:var(--serif);font-size:2.4rem;color:var(--teal);font-weight:600;line-height:1;margin-bottom:8px}
+.cr .offer h3{font-size:1.5rem;margin-bottom:10px}
+.cr .offer p{color:var(--ink-soft);font-size:.93rem;flex:1}
+.cr .offer .terms{font-size:.76rem;color:var(--ink-soft);margin-top:14px;padding-top:12px;border-top:1px dashed var(--sand-3)}
+.cr .offer .btn{margin-top:18px;align-self:flex-start}
+/* Split (text + aside) */
+.cr .split{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:start}
+.cr .aside-card{background:var(--cream);border:1px solid var(--sand-3);border-radius:5px;padding:32px 30px;box-shadow:var(--shadow-sm)}
+.cr .aside-card + .aside-card{margin-top:20px}
+.cr .aside-card h3{font-size:1.5rem;margin-bottom:12px}
+.cr .aside-card p{color:var(--ink-soft);font-size:.94rem;margin-bottom:10px}
+.cr .aside-card a{color:var(--teal-deep);font-weight:400}
+.cr .aside-card a:hover{color:var(--brass-deep)}
+.cr .aside-card .kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--sand-3);font-size:.92rem}
+.cr .aside-card .kv span:first-child{color:var(--ink-soft)}
+/* FAQ */
+.cr .faq{max-width:820px;margin:0 auto}
+.cr .faq details{border-bottom:1px solid var(--sand-3);padding:20px 0}
+.cr .faq summary{cursor:pointer;font-family:var(--serif);font-size:1.4rem;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.cr .faq summary::-webkit-details-marker{display:none}
+.cr .faq summary::after{content:'+';font-family:var(--sans);color:var(--brass);font-size:1.4rem;font-weight:300;flex-shrink:0}
+.cr .faq details[open] summary::after{content:'–'}
+.cr .faq details p{margin-top:12px;color:var(--ink-soft);font-size:1rem;max-width:720px}
+/* Steps */
+.cr .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;counter-reset:crstep}
+.cr .step{padding:34px 28px;background:var(--cream);border:1px solid var(--sand-3);border-radius:4px;position:relative}
+.cr .bg-cream .step{background:var(--sand)}
+.cr .step::before{counter-increment:crstep;content:counter(crstep,decimal-leading-zero);font-family:var(--serif);font-size:2.4rem;color:var(--brass);line-height:1;display:block;margin-bottom:14px;font-weight:600}
+.cr .step h3{font-size:1.35rem;margin-bottom:8px}
+.cr .step p{color:var(--ink-soft);font-size:.92rem}
+/* Quote */
+.cr .quote{max-width:760px;margin:0 auto;text-align:center}
+.cr .quote p{font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.3;color:var(--ink);font-style:italic}
+.cr .quote cite{display:block;margin-top:18px;font-style:normal;font-size:.76rem;letter-spacing:2px;text-transform:uppercase;color:var(--brass-deep)}
+/* Mini cards (link tiles) */
+.cr .mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.cr .mini{background:var(--sand);border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .4s,border-color .4s,box-shadow .4s;border:1px solid var(--sand-3);display:block;color:var(--ink)}
+.cr .bg-sand .mini{background:var(--cream)}
+.cr .mini:hover{transform:translateY(-6px);border-color:var(--brass);box-shadow:var(--shadow-sm)}
+.cr .mini img{width:100%;height:170px;object-fit:cover}
+.cr .mini-b{padding:20px}
+.cr .mini-b .loc{font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass-deep);margin-bottom:6px}
+.cr .mini-b h4{font-size:1.3rem;color:var(--ink)}
+.cr .mini-b p{font-size:.86rem;color:var(--ink-soft);margin-top:6px}
+/* Map */
+.cr .map{border-radius:4px;overflow:hidden;border:1px solid var(--sand-3);box-shadow:var(--shadow-sm);height:380px}
+.cr .map iframe{width:100%;height:100%;border:0}
+
+/* ---------- 9. Property view ---------- */
+.cr .p-hero{height:76vh;min-height:520px;position:relative;display:flex;align-items:flex-end;background:var(--ink);margin:0}
+.cr .p-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,33,23,.4) 0%,rgba(43,33,23,.12) 45%,rgba(43,33,23,.9) 100%);z-index:1}
+.cr .p-hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cr .p-hero-inner{position:relative;z-index:2;padding:0 6vw 64px;max-width:900px}
+.cr .p-tier{display:inline-block;background:var(--brass);color:var(--cream);font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;padding:7px 15px;border-radius:30px;font-weight:600;margin-bottom:16px}
+.cr .p-hero h1{font-size:clamp(2.6rem,6vw,5rem);color:var(--cream);margin-bottom:6px}
+.cr .p-tagline{font-family:var(--script)!important;font-size:clamp(1.7rem,3.4vw,2.7rem);color:var(--sand-2);line-height:1.15}
+.cr .p-loc{font-size:.84rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,252,246,.85);margin-top:14px}
+.cr .p-body{padding:90px 6vw;display:grid;grid-template-columns:1.6fr 1fr;gap:70px;background:var(--sand);align-items:start}
+.cr .p-about h2{font-size:2.2rem;color:var(--ink);margin-bottom:18px}
+.cr .p-about h2 .script{color:var(--clay);font-size:1.25em}
+.cr .p-about p{color:var(--ink-soft);font-size:1.09rem;margin-bottom:22px}
+.cr .glance{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px}
+.cr .glance span{border:1px solid var(--sand-3);background:var(--cream);padding:8px 14px;border-radius:30px;font-size:.78rem;letter-spacing:.6px;color:var(--ink-soft)}
+.cr .p-side{background:var(--cream);border:1px solid var(--sand-3);border-radius:5px;padding:36px 32px;position:sticky;top:90px;box-shadow:var(--shadow-sm)}
+body.admin-bar .cr .p-side{top:122px}
+.cr .p-side .price{font-family:var(--serif);font-size:2.1rem;color:var(--teal);font-weight:600;line-height:1}
+.cr .p-side .price small{font-family:var(--sans);font-size:.8rem;color:var(--ink-soft);font-weight:300}
+.cr .p-side .price-note{font-size:.82rem;color:var(--ink-soft);margin:10px 0 24px}
+.cr .p-side .btn{width:100%;text-align:center;margin-bottom:12px;display:block}
+.cr .p-side .side-note{font-size:.8rem;color:var(--ink-soft);text-align:center;margin-top:8px;line-height:1.5}
+.cr .feats-title{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--brass-deep);margin-bottom:4px;font-weight:500}
+.cr .feats{list-style:none;margin-top:12px}
+.cr .feats li{padding:13px 0;border-bottom:1px solid var(--sand-3);font-size:.97rem;color:var(--ink);display:flex;gap:12px;align-items:flex-start}
+.cr .feats li::before{content:'◆';color:var(--brass);flex-shrink:0;font-size:.6rem;line-height:2.4}
+.cr .gallery-sec{padding:10px 6vw 100px;background:var(--sand)}
+.cr .gallery-sec .eyebrow{margin-bottom:28px}
+.cr .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+.cr .g-item{overflow:hidden;border-radius:3px;cursor:pointer;position:relative;background:var(--sand-2)}
+.cr .g-item:first-child{grid-column:span 2;grid-row:span 2}
+.cr .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.cr .g-item:hover img{transform:scale(1.06)}
+.cr .g-item::after{content:'+';position:absolute;bottom:10px;right:14px;color:var(--cream);font-size:1.4rem;opacity:0;transition:opacity .3s;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.cr .g-item:hover::after{opacity:1}
+.cr .more-stays{padding:88px 6vw;background:var(--cream);text-align:center}
+.cr .more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:46px;text-align:left}
+
+/* ---------- 10. Forms ---------- */
+.cr .form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cr .form .full{grid-column:1/-1}
+.cr .form label{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass-deep);display:block;margin-bottom:7px;font-weight:500}
+.cr .form input,.cr .form select,.cr .form textarea{width:100%;padding:14px 16px;border:1px solid var(--sand-3);background:var(--cream);border-radius:2px;font-weight:300;font-size:.98rem;color:var(--ink);transition:border-color .3s,box-shadow .3s;-webkit-appearance:none;appearance:none;margin:0;min-height:0;height:auto;line-height:1.4;box-shadow:none}
+.cr .form select{background-image:linear-gradient(45deg,transparent 50%,var(--brass) 50%),linear-gradient(135deg,var(--brass) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:40px}
+.cr .form textarea{min-height:140px;resize:vertical}
+.cr .form input:focus,.cr .form select:focus,.cr .form textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(62,124,118,.12)}
+.cr .form input::placeholder,.cr .form textarea::placeholder{color:#9A8B73}
+.cr .form .check{display:flex;gap:10px;align-items:flex-start;font-size:.84rem;color:var(--ink-soft);text-transform:none;letter-spacing:0;font-weight:300}
+.cr .form .check input{width:16px;height:16px;margin-top:4px;padding:0;-webkit-appearance:checkbox;appearance:checkbox;flex-shrink:0}
+.cr .form .check a{color:var(--teal-deep);text-decoration:underline}
+.cr .form .btn{justify-self:start}
+.cr .form-wrap{background:var(--cream);border:1px solid var(--sand-3);border-radius:5px;padding:40px 38px;box-shadow:var(--shadow-sm)}
+.cr .form-wrap h2{font-size:2rem;margin-bottom:8px}
+.cr .form-wrap > p{color:var(--ink-soft);margin-bottom:26px;font-size:.98rem}
+.cr .notice{padding:16px 20px;border-left:3px solid var(--teal);background:var(--sand);margin-bottom:24px;font-size:.95rem;color:var(--ink)}
+.cr .notice.error{border-color:var(--clay)}
+.cr .notice[hidden]{display:none}
+
+/* ---------- 11. Lightbox ---------- */
+.cr .lb{position:fixed;inset:0;z-index:3000;background:rgba(30,22,12,.95);display:none;align-items:center;justify-content:center;flex-direction:column;padding:4vw}
+.cr .lb.open{display:flex}
+.cr .lb img{max-width:90vw;max-height:80vh;width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:var(--shadow)}
+.cr .lb-close{position:absolute;top:22px;right:28px;background:none;border:none;color:var(--cream);font-size:2.2rem;cursor:pointer;line-height:1}
+.cr .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,252,246,.1);border:1px solid rgba(255,252,246,.25);color:var(--cream);width:52px;height:52px;border-radius:50%;font-size:1.4rem;cursor:pointer;transition:background .3s;display:flex;align-items:center;justify-content:center}
+.cr .lb-nav:hover{background:rgba(181,138,75,.5)}
+.cr .lb-prev{left:22px}.cr .lb-next{right:22px}
+.cr .lb-count{margin-top:18px;color:rgba(255,252,246,.8);font-size:.84rem;letter-spacing:1.5px}
+.cr .lb-cap{margin-top:8px;color:rgba(255,252,246,.7);font-size:.8rem}
+
+/* ---------- 12. Footer ---------- */
+.cr .footer{background:var(--ink);color:rgba(255,252,246,.72);padding:70px 6vw 34px}
+.cr .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:50px;margin-bottom:52px}
+.cr .foot-brand .logo-mark{width:42px;height:42px;border-color:rgba(255,252,246,.25)}
+.cr .foot-brand .logo-mark::before{border-color:rgba(255,252,246,.12)}
+.cr .foot-brand .lm-text{color:var(--cream)}
+.cr .foot-brand .lw-name{color:var(--cream)}
+.cr .foot-brand .lw-sub{color:rgba(255,252,246,.55)}
+.cr .foot-brand p{margin-top:16px;max-width:300px;font-size:.94rem;color:rgba(255,252,246,.58)}
+.cr .foot-col h4{font-family:var(--sans);font-size:.76rem;letter-spacing:2px;text-transform:uppercase;color:var(--brass);margin-bottom:18px;font-weight:500}
+.cr .foot-col a{display:block;color:rgba(255,252,246,.72);text-decoration:none;font-size:.92rem;margin-bottom:12px;transition:color .3s;cursor:pointer}
+.cr .foot-col a:hover{color:var(--cream)}
+.cr .foot-bottom{border-top:1px solid rgba(255,252,246,.12);padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.82rem;color:rgba(255,252,246,.5)}
+.cr .foot-bottom a{color:rgba(255,252,246,.5)}
+.cr .foot-bottom a:hover{color:var(--cream)}
+
+/* ---------- 13. Responsive ---------- */
+@media (max-width:1180px){
+  .cr .nav-links{gap:22px}
+  .cr .nav-links a{font-size:.7rem;letter-spacing:1.2px}
+  .cr .nav-cta{padding:9px 16px}
+}
+@media (max-width:1080px){
+  .cr .nav-links{position:fixed;top:0;right:0;height:100vh;height:100dvh;width:min(78%,360px);background:var(--teal-deep);flex-direction:column;justify-content:center;align-items:flex-start;gap:26px;transform:translateX(100%);transition:transform .4s;padding:40px;z-index:2001;box-shadow:-20px 0 60px rgba(0,0,0,.25)}
+  .cr .nav-links.open{transform:translateX(0)}
+  .cr .nav-links a{color:var(--cream)!important;font-size:1rem;letter-spacing:1.8px}
+  .cr .nav-links a:not(.nav-cta)::after{display:none}
+  .cr .nav-cta{border-color:rgba(255,252,246,.55)!important;margin-top:10px}
+  .cr .menu-btn{display:flex}
+  .cr .steps,.cr .mini-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:980px){
+  .cr .grid,.cr .grid-4,.cr .why-grid,.cr .venue-grid,.cr .inc-grid,.cr .pkg-grid{grid-template-columns:repeat(2,1fr)}
+  .cr .ex-grid{grid-template-columns:repeat(2,1fr);gap:44px}
+  .cr .intro,.cr .p-body,.cr .feature,.cr .split,.cr .offer-grid,.cr .menu-grid{grid-template-columns:1fr;gap:50px}
+  .cr .feature + .feature{margin-top:70px}
+  .cr .feature.flip .feature-img{order:0}
+  .cr .feature-img img{height:400px}
+  .cr .p-side{position:static}
+  .cr .intro-img{height:430px}
+  .cr .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}
+  .cr .g-item:first-child{grid-column:span 2}
+  .cr .more-grid{grid-template-columns:1fr}
+  .cr .foot-top{grid-template-columns:1fr 1fr;gap:38px}
+  .cr .hero,.cr .band{background-attachment:scroll,scroll}
+}
+@media (max-width:620px){
+  .cr .logo-mark{width:44px;height:44px}
+  .cr .logo-words .lw-name{font-size:1rem}
+  .cr .logo-words .lw-sub{font-size:.44rem;letter-spacing:2.5px}
+  .cr .grid,.cr .grid-2,.cr .grid-4,.cr .why-grid,.cr .ex-grid,.cr .venue-grid,.cr .inc-grid,.cr .pkg-grid,.cr .steps,.cr .mini-grid,.cr .checks{grid-template-columns:1fr}
+  .cr section,.cr .section{padding:80px 7vw}
+  .cr .section-tight{padding:60px 7vw}
+  .cr .hero{min-height:560px;background-position:center top}
+  .cr .hero-tag{font-size:.68rem;letter-spacing:2.5px}
+  .cr .hero-welcome{font-size:1.7rem}
+  .cr h1.hero-title{font-size:clamp(2.6rem,11.5vw,3.6rem)}
+  .cr .hero-btns .btn{width:100%}
+  .cr .page-hero{height:56vh;min-height:400px}
+  .cr .page-hero-inner{padding-bottom:44px}
+  .cr .intro-img{height:340px}
+  .cr .intro-img .badge{bottom:0;left:0;max-width:none;right:0;border-radius:0 0 3px 3px}
+  .cr .intro-stats{gap:28px}
+  .cr .gallery{grid-template-columns:1fr;grid-auto-rows:230px}
+  .cr .g-item:first-child{grid-column:span 1;grid-row:span 1}
+  .cr .offer{grid-template-columns:1fr}
+  .cr .offer-img{min-height:200px}
+  .cr .form{grid-template-columns:1fr}
+  .cr .form-wrap{padding:28px 22px}
+  .cr .p-body,.cr .gallery-sec,.cr .more-stays{padding-left:7vw;padding-right:7vw}
+  .cr .p-side{padding:28px 22px}
+  .cr .foot-top{grid-template-columns:1fr;gap:30px}
+  .cr .cta{padding:72px 7vw}
+  .cr .cta .btn{width:100%;margin:0 0 12px}
+  .cr .map{height:300px}
+  .cr .lb-nav{width:42px;height:42px}
+}
+
+</style>
+</head>
+<body class="cr-body">
+<script>window.CR_CONFIG={base:'./',ext:'.html',home:'./index.html',formAction:'',formMode:'mailto',preview:true};</script>
+<!-- PAGE HTML (pages/experiences.html) -->
+<!-- C&R Luxurious Travel · EXPERIENCES (Activities + Water & Shore Excursions) · tabs: ?tab=water or #shore -->
+<div class="cr" data-page="experiences">
+
+<header class="page-hero" style="--hero-img:url('https://cdn2.paraty.es/lhvc-corpo/images/3f711b631c687f7=s1900')">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a data-href="home">Home</a> &nbsp;/&nbsp; Experiences</div>
+    <div class="eyebrow">Activities &amp; Excursions</div>
+    <h1>Adventure, <span class="script">your way.</span></h1>
+    <p class="sub">Evening shows, live music and themed activities on the resort, and the best of the north coast beyond it: waterfalls, catamarans, zip lines and mountain buggies.</p>
+  </div>
+</header>
+
+<section class="bg-sand txt-center" id="explore">
+  <div class="reveal">
+    <div class="eyebrow center">Choose Your Day</div>
+    <h2 class="section-title center">On the resort or <span class="script">off the map.</span></h2>
+  </div>
+  <div data-tabs>
+    <div class="tabs reveal">
+      <button class="tab-btn" type="button" data-tab="activities">Resort Activities</button>
+      <button class="tab-btn" type="button" data-tab="water">Water Excursions</button>
+      <button class="tab-btn" type="button" data-tab="shore">Shore Excursions</button>
+    </div>
+
+    <div class="tab-panel" data-panel="activities" style="text-align:left">
+      <p class="lead center mb-40">Included with every stay. Kids’ club runs 9am–12pm and 2pm–5pm daily; the teens’ club (13–17) 10am–12pm and 3pm–6pm.</p>
+      <div class="venue-grid">
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/9ff1f498f00eebd=s800" alt="Tennis court" loading="lazy"></div><div class="venue-b"><div class="meta">Courts</div><h3>Tennis, Pickleball &amp; Basketball</h3><p>Courts and equipment for guests; lessons on request.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/4f8fce4174a19db=s800" alt="Beach volleyball" loading="lazy"></div><div class="venue-b"><div class="meta">Beach &amp; Pool</div><h3>Beach Volleyball &amp; Foam Parties</h3><p>Daytime pool games, beach volleyball and the famous foam parties.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/76e0048d6c91aac=s800" alt="Cycling on the resort" loading="lazy"></div><div class="venue-b"><div class="meta">Wheels</div><h3>Bicycles</h3><p>Cruise between beaches, pools and restaurants on resort bikes.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/42259676ed50e52=s800" alt="Archery lesson" loading="lazy"></div><div class="venue-b"><div class="meta">Xtreme Zone</div><h3>Archery, Mini-golf &amp; Paintball</h3><p>An afternoon of friendly competition for all ages.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/ddba579c5cee74f=s800" alt="Lifestyle Royale games and sports bar" loading="lazy"></div><div class="venue-b"><div class="meta">Lifestyle Royale</div><h3>Games &amp; Sports Bar</h3><p>Big screens, billiards and cold drinks for match nights.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/ad4029b2fea481e=s800" alt="Roulette wheel with champagne" loading="lazy"></div><div class="venue-b"><div class="meta">Evenings</div><h3>Casino Nights</h3><p>Slot machines and roulette in the lively casino at Lifestyle Royale.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/2b623c2be63b58a=s800" alt="Cabaret performers" loading="lazy"></div><div class="venue-b"><div class="meta">Nightly</div><h3>Cabaret &amp; Live Shows</h3><p>Cabaret, live bands and decade-themed parties every night of the week.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/0947c84960b194d=s800" alt="Children playing with balloons" loading="lazy"></div><div class="venue-b"><div class="meta">Families</div><h3>Kids’ &amp; Teens’ Clubs</h3><p>Supervised programs, three children’s pools and a mini disco before the show.</p></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/02d8075f26f9e30=s800" alt="Fitness equipment" loading="lazy"></div><div class="venue-b"><div class="meta">Two Gyms</div><h3>Fitness &amp; Water Sports</h3><p>Two gyms plus kayaks, paddle boards and snorkeling gear on the beach.</p></div></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="water" style="text-align:left">
+      <p class="lead center mb-40">Guided excursions with hotel pickup. Prices are the resorts’ published rates in USD (adult / child) and are confirmed at booking.</p>
+      <div class="venue-grid">
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/b905b090470bdb1=s800" alt="Sliding down Damajagua waterfalls" loading="lazy"></div><div class="venue-b"><div class="meta">Puerto Plata</div><h3>Damajagua Waterfalls</h3><p>Hike, jump and slide through the famous 27 limestone waterfalls.</p><div class="venue-foot"><span class="price">$55<small> adult · $40 child</small></span><span class="dur">Half day<br>8am–1:30pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/6147b6eee387afe=s800" alt="Boat to a private island" loading="lazy"></div><div class="venue-b"><div class="meta">Off-shore</div><h3>Paradise Island</h3><p>Catamaran to a pristine island with snorkeling and a mangrove tour.</p><div class="venue-foot"><span class="price">$160<small> adult · $80 child</small></span><span class="dur">Full day<br>8am–6:30pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/3f711b631c687f7=s800" alt="Catamaran and snorkelers" loading="lazy"></div><div class="venue-b"><div class="meta">Atlantic coast</div><h3>Catamaran &amp; Snorkeling</h3><p>Crystal-clear water, reef snorkeling and an open bar on deck.</p><div class="venue-foot"><span class="price">On request</span><span class="dur">Half day</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/0c8429c4ef7b71e=s800" alt="Family swimming with dolphins" loading="lazy"></div><div class="venue-b"><div class="meta">Ocean World</div><h3>Dolphin Swim</h3><p>Thirty minutes in the water with dolphins plus park admission. VIP swim and shallow-water encounter also available.</p><div class="venue-foot"><span class="price">$189<small> adult · $144 child</small></span><span class="dur">Full day<br>10:50am–4pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/c6d14307c96d6f8=s800" alt="Snorkeling with sharks" loading="lazy"></div><div class="venue-b"><div class="meta">Ocean World</div><h3>Shark Encounter</h3><p>Safely touch and feed stingrays, then swim with trained nurse sharks.</p><div class="venue-foot"><span class="price">$110<small> per person</small></span><span class="dur">Full day</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/a00b7d4dffef589=s800" alt="Ocean World water park" loading="lazy"></div><div class="venue-b"><div class="meta">Five minutes away</div><h3>Ocean World Day Pass</h3><p>Dolphin and sea-lion shows, tropical birds, water attractions and a private beach.</p><div class="venue-foot"><span class="price">$79<small> adult · $64 child</small></span><span class="dur">Full day<br>10:50am–4pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/e0f285ef83ca29e=s800" alt="Zip line through the forest" loading="lazy"></div><div class="venue-b"><div class="meta">Combo</div><h3>Zip n’ Splash</h3><p>Waterfalls, horseback riding and zip lines in one full day.</p><div class="venue-foot"><span class="price">$149<small> adult · $89 child</small></span><span class="dur">Full day<br>8:50am–5pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/47992afd19e0756=s800" alt="Tropical island and calm water" loading="lazy"></div><div class="venue-b"><div class="meta">Charter</div><h3>Deep Sea Fishing</h3><p>Marlin, mahi-mahi, wahoo and tuna with a professional crew.</p><div class="venue-foot"><span class="price">$595<small> charter · $99 pp</small></span><span class="dur">Half day<br>7:30am–12:30pm</span></div></div></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="shore" style="text-align:left">
+      <p class="lead center mb-40">Culture, mountains and countryside. Prices are the resorts’ published rates in USD and are confirmed at booking.</p>
+      <div class="venue-grid">
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/e098e356845e816=s800" alt="Puerto Plata waterfront and port" loading="lazy"></div><div class="venue-b"><div class="meta">Puerto Plata</div><h3>City Tour</h3><p>Victorian architecture, the Amber Museum, the cathedral and Parque Central.</p><div class="venue-foot"><span class="price">$50<small> adult · $25 child</small></span><span class="dur">Half day<br>8am–2pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/5255edf08e67f05=s800" alt="Christ statue on Isabel de Torres" loading="lazy"></div><div class="venue-b"><div class="meta">Isabel de Torres</div><h3>City &amp; Mountain Cable Car</h3><p>The city tour plus the cable car to the Christ statue and its panoramic gardens.</p><div class="venue-foot"><span class="price">$60<small> adult · $30 child</small></span><span class="dur">Half day<br>8am–3pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/2487eb728d46d23=s800" alt="Classic convertible car" loading="lazy"></div><div class="venue-b"><div class="meta">Private</div><h3>Classic Car Sightseeing</h3><p>A restored vintage convertible and driver through the historic streets.</p><div class="venue-foot"><span class="price">$450<small> per car · up to 4</small></span><span class="dur">Half day<br>10am or 2pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/39734ff4db0c1c2=s800" alt="Monster buggy on a trail" loading="lazy"></div><div class="venue-b"><div class="meta">Countryside</div><h3>Monster Cross Buggies</h3><p>Drive 600cc buggies through hills, rivers and villages with photo stops.</p><div class="venue-foot"><span class="price">$160<small> double · $140 single</small></span><span class="dur">Half day<br>8:15am or 1:15pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/476152c331eef6c=s800" alt="ATV through tropical landscape" loading="lazy"></div><div class="venue-b"><div class="meta">Countryside</div><h3>ATV Wheelers</h3><p>Off-road exploration of villages and mountain terrain on your own ATV.</p><div class="venue-foot"><span class="price">$120<small> single</small></span><span class="dur">Half day<br>8:15am or 1:15pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/81f9c16bf7b0deb=s800" alt="Zip line over the beach" loading="lazy"></div><div class="venue-b"><div class="meta">Canopy</div><h3>Mega Zip Line</h3><p>The longest lines in the Dominican Republic, including an 850-meter run.</p><div class="venue-foot"><span class="price">$75<small> adult · $55 child</small></span><span class="dur">Half day<br>9am–1:30pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/60bcd43e0e6a27d=s800" alt="Zip 'n Ride jungle adventure" loading="lazy"></div><div class="venue-b"><div class="meta">Jungle</div><h3>Zip ’n Ride</h3><p>Horseback riding followed by a three-kilometer zip-line canopy tour.</p><div class="venue-foot"><span class="price">$89<small> adult · $69 child</small></span><span class="dur">Half day<br>8:50am–1:30pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/673b01d45e251d7=s800" alt="Squirrel monkeys at Monkeyland" loading="lazy"></div><div class="venue-b"><div class="meta">Sanctuary</div><h3>Monkeyland</h3><p>A five-acre sanctuary with friendly squirrel monkeys. Add twelve zip lines for $90 / $65.</p><div class="venue-foot"><span class="price">$70<small> adult · $45 child</small></span><span class="dur">Half day<br>9:15am–2pm</span></div></div></div>
+        <div class="venue reveal"><div class="venue-img"><img src="https://cdn2.paraty.es/lhvc-corpo/images/e73d482f7b74885=s800" alt="Horseback riding on the beach" loading="lazy"></div><div class="venue-b"><div class="meta">Coast</div><h3>Beach Horseback Riding</h3><p>Guided trail through sugarcane fields to the beach, in the morning or at sunset.</p><div class="venue-foot"><span class="price">$69<small> adult · $45 child</small></span><span class="dur">Half day<br>9am or 3:15pm</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-cream">
+  <div class="feature">
+    <div class="feature-img reveal"><img src="https://cdn2.paraty.es/lhvc-corpo/images/df5614daeb12a24=s1200" alt="Traditional Dominican dancers" loading="lazy"><span class="tag">Local Culture</span></div>
+    <div class="feature-text reveal">
+      <div class="eyebrow">Beyond the Gates</div>
+      <h2>The north coast, <span class="script">unhurried.</span></h2>
+      <p>Puerto Plata’s Victorian center and Amber Museum are twenty minutes away; the cable car to Isabel de Torres, ten. Cabarete’s kite beach and Sosúa’s reefs are an easy afternoon. Your advisor can pair excursions with private transfers so you never wait for a bus.</p>
+      <a class="btn btn-ink" data-href="contact">Build an Itinerary</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <span class="script">Say yes to the day</span>
+  <h2 class="serif">Pre-book excursions with your stay.</h2>
+  <p>The catamaran and dolphin days sell out in high season. Tell us what excites you and we will hold the spots.</p>
+  <a class="btn btn-primary" data-href="contact">Plan Your Escape</a>
+</section>
+
+</div>
+
+<!-- PIECE 2: global script (assets/cr-site.js) -->
+<script>
+/* ==========================================================================
+   C&R LUXURIOUS TRAVEL · PIECE 2 · GLOBAL SCRIPT  (v1.0.0)
+   --------------------------------------------------------------------------
+   One file, loaded on every C&R page. The C&R plugin enqueues it in the
+   footer and injects window.CR_CONFIG. Manual route: paste the whole file
+   into WPCode → "JavaScript Snippet" (Auto Insert · Site Wide Footer).
+
+   Each page's HTML (pages/*.html) is a plain <div class="cr" data-page="…">.
+   This script injects the shared navigation and footer, renders data-driven
+   parts (stay cards, the property page), and wires shared behaviour
+   (filters, tabs, lightbox, reveal animations, inquiry forms).
+
+   Sections: 1 config · 2 site settings · 3 property data · 4 helpers ·
+             5 nav & footer · 6 renderers · 7 shared behaviour · 8 boot
+   ========================================================================== */
+(function () {
+  'use strict';
+  if (window.__CR_BOOTED) { return; }
+  window.__CR_BOOTED = true;
+
+  /* ---------- 1. Config (injected by the plugin or the preview builder) ---------- */
+  var CFG = { base: '/', ext: '', home: '', urls: {}, formAction: '', formMode: 'mailto', preview: false };
+  if (window.CR_CONFIG) { for (var key in window.CR_CONFIG) { if (Object.prototype.hasOwnProperty.call(window.CR_CONFIG, key)) { CFG[key] = window.CR_CONFIG[key]; } } }
+  CFG.urls = CFG.urls || {};
+
+  /* ---------- 2. Site settings — edit freely ---------- */
+  var SITE = {
+    name: 'C & R',
+    sub: 'Luxurious Travel',
+    legal: 'C&R Luxurious Travel',
+    email: 'concierge@crluxurioustravel.com',
+    phone: '+1 (000) 000-0000',
+    phoneHref: '+10000000000',
+    hours: 'Advisors available daily, 8am to 8pm ET',
+    tagline: 'Private access to the Caribbean’s finest resorts and villas, and 300,000+ destinations worldwide.',
+    nav: [
+      { label: 'Stays', page: 'stays' },
+      { label: 'All-Inclusive', page: 'all-inclusive' },
+      { label: 'Dining', page: 'dining' },
+      { label: 'Spa', page: 'spa' },
+      { label: 'Experiences', page: 'experiences' },
+      { label: 'Weddings', page: 'weddings' },
+      { label: 'Offers', page: 'offers' }
+    ],
+    cta: { label: 'Plan Your Escape', page: 'contact' }
+  };
+
+  /* ---------- 3. Property data — edit everything here ---------- */
+  /* Images are served from the resorts' CDN (used with the site owners' permission).
+     Any image id accepts a size suffix: =s800 (cards) · =s1400 (galleries) · =s1900 (heroes). */
+  var CDN = 'https://cdn2.paraty.es/lhvc-corpo/images/';
+  function img(id, size) { return CDN + id + '=s' + (size || 1400); }
+
+  var PROPERTIES = [
+    {
+      id: 'crown-villas', cat: 'villa', area: 'puerto-plata', tier: 'Crown Tier',
+      loc: 'Cofresí Beach · Puerto Plata', name: 'The Crown Villas', tagline: 'The jewel of the collection',
+      price: 'from $1,920 / night', glance: ['3–7 bedrooms', 'Up to 14 guests', 'Private pool', 'Maid, butler & chef'],
+      short: 'Ninety five-star private estates of three to seven bedrooms, each with its own pool, maid, butler and in-house chef.',
+      desc: [
+        'The Crown Villas are the ultimate expression of luxury and exclusivity on Cofresí Beach. Each is a private estate home with sumptuous three-to-seven bedroom layouts, every bedroom appointed with a king bed and a full private bath.',
+        'All villas feature a private swimming pool, shaded terrace, veranda and full kitchen, with classic Mediterranean architecture set against lush tropical gardens. Your dedicated maid, butler and in-house chef ensure every moment is effortless, whether you are hosting a family reunion or a milestone celebration.'
+      ],
+      feats: ['3 to 7 bedroom private estates', 'Private swimming pool per villa', 'Personal maid, butler & in-house chef', 'King beds with en-suite baths', 'Classic Mediterranean design', 'Ideal for large family reunions'],
+      gallery: ['c487a243f7c1de5', '0e2a19af098b28f', '950f6626a6dbfff', '0d16b01b92db561', 'd752ef0149c57d9']
+    },
+    {
+      id: 'cliff-villas', cat: 'villa', area: 'puerto-plata', tier: 'Villa',
+      loc: 'Cofresí Peninsula · Puerto Plata', name: 'The Cliff Villas', tagline: 'Where the infinity pool meets the horizon',
+      price: 'from $1,920 / night', glance: ['6–7 bedrooms', 'Up to 8 guests', '500 m²', 'Infinity pool'],
+      short: 'Minimalist beachside villas on a dramatic peninsula, designed around the art of outdoor living.',
+      desc: [
+        'The Cliff offers the pinnacle of modern luxury, set within a dramatic and awe-inspiring setting on a peninsula along the coast of Cofresí Beach. Modern design meets the tropics in these gorgeous beachside villas, built around the art of outdoor living.',
+        'Six to seven opulent bedrooms open from a grand foyer beneath a two-story vaulted ceiling. Lounge in your infinity pool as it seamlessly meets the horizon of the Caribbean Sea; the minimalist design never blocks the view. Every bedroom includes a spacious walk-in closet and a bathroom with modern fixtures, while a butler, maid and in-house chef make the experience unforgettable.'
+      ],
+      feats: ['Private infinity pools', 'Unobstructed Caribbean sea views', 'Butler, maid & in-house chef', 'Walk-in closets in every bedroom', 'Grand foyer & two-story vaulted ceiling', 'Outdoor BBQ & terrace living'],
+      gallery: ['9ccc3031f5d68fa', '706a26db2e91bbf', '2aa6edebbf3f56f', 'f04b64925aa14c3', 'f1950f6cfa790bb', 'b08a9dc5903080c', '24aa0f00783c5d9', 'e5db9980d40168c']
+    },
+    {
+      id: 'royal-villas', cat: 'villa', area: 'puerto-plata', tier: 'Villa',
+      loc: 'Cofresí Beach · Puerto Plata', name: 'Royal Villas', tagline: 'Classical Mediterranean, modern flair',
+      price: 'from $1,600 / night', glance: ['3–6 bedrooms', 'Private pool', 'Maid, butler & chef', 'VIP resort access'],
+      short: 'Spanish-Mediterranean villas with exotic archways, authentic brick and thriving tropical gardens.',
+      desc: [
+        'The Royal Villas offer the ultimate in elegant, exclusive villa living, blending classical Spanish-Mediterranean style with chic modern flair. Elegant exteriors feature exotic archways, authentic brick and classic stucco, complemented by distinctive stone and thriving tropical gardens.',
+        'Guests enjoy access to all resort facilities plus VIP services, including a personal maid, butler and in-house chef, so days flow between your private pool, the VIP beaches and the resorts’ restaurants without a single detail to arrange.'
+      ],
+      feats: ['Spanish-Mediterranean architecture', 'Exotic archways & authentic brick', 'Private pool & tropical gardens', 'Personal maid, butler & chef', 'Full VIP resort access', 'Private BBQ & mountain views'],
+      gallery: ['d73931604c2057d', '0bf56b8f2cac01f', 'de59e44c7c3165e', '0ad0818802f9ba4', '7345e61ed6d72f5']
+    },
+    {
+      id: 'villa-park', cat: 'villa', area: 'puerto-plata', tier: 'Villa',
+      loc: 'Cofresí Beach · Puerto Plata', name: 'Villa Park', tagline: 'Lavish living amid mountains & sky',
+      price: 'from $153 / night', glance: ['3–6 bedrooms', 'Private pool', 'Maid, butler & chef', 'Mountain views'],
+      short: 'Three-to-six bedroom villas set amid dramatic mountains and exotic tropical flora.',
+      desc: [
+        'Villa Park offers the ultimate in lavish lifestyle, set within the beauty of the resort in Puerto Plata and surrounded by dramatic mountains, sweeping skies and the exotic lush flora of the area.',
+        'Each three-to-six bedroom villa is beautifully appointed and fully equipped for easy living, featuring tile floors throughout, comfortable seating in separate living areas, a dining area, spacious bedrooms and lavish baths. Your own maid, butler and in-house chef make every stay exceptional.'
+      ],
+      feats: ['3 to 6 bedroom villas', 'Personal maid, butler & in-house chef', 'Separate living & dining areas', 'Mountain & garden surroundings', 'Fully equipped for easy living', 'Beautiful tilework throughout'],
+      gallery: ['ed5aa264f6e29e3', '101ac584e0a4167', '783eaa57249964f', '24adb4d352be1f1', '3d0616c6f567a0c']
+    },
+    {
+      id: 'lifestyle-tropical', cat: 'hotel', area: 'puerto-plata', tier: 'All-Inclusive',
+      loc: 'Playa Cofresí · Puerto Plata', name: 'Lifestyle Tropical Beach Resort & Spa', tagline: 'A true tropical experience',
+      price: 'from $89 / night', glance: ['Oceanfront', 'All-inclusive', '1.5 miles of beach', 'Families & couples'],
+      short: 'One and a half miles of golden sand on the Amber Coast, with gourmet dining and oceanfront entertainment.',
+      desc: [
+        'Set along 1.5 miles of golden sand in Playa Cofresí on the Amber Coast, the Tropical is the essence of a true Caribbean beach experience. This oceanfront five-star, all-inclusive resort offers rooms, suites and villas in a variety of sizes, perfect for families, couples and groups.',
+        'Enjoy the Casablanca and Pearl buffets, the Indochine and Blue Lagoon à la carte restaurants, nightly entertainment, resort pools and upscale service throughout your stay.'
+      ],
+      feats: ['Oceanfront 5-star, all-inclusive', '1.5 miles of golden beach', 'Two buffets & two à la carte restaurants', 'Resort pools & beach clubs', 'Daily live entertainment', 'Rooms, suites & villas'],
+      gallery: ['58215e76a00c07a', '72848c8b34f66fa', '8f41d661af4a859', 'dffdcc54778f7e9', 'c188b10002e7bfd']
+    },
+    {
+      id: 'cofresi-palm', cat: 'hotel', area: 'puerto-plata', tier: 'All-Inclusive',
+      loc: 'Playa Cofresí · Puerto Plata', name: 'Cofresi Palm Beach & Spa Resort', tagline: 'Opulent, relaxed, unmistakably Caribbean',
+      price: 'from $147 / night', glance: ['All-inclusive', 'Full-service spa', 'Beachfront', 'Five restaurants'],
+      short: 'An opulent yet relaxed retreat with a full-service spa and the easy elegance the coast is known for.',
+      desc: [
+        'Cofresi Palm provides the easy, relaxed ambience of the Caribbean in an opulent and elegant setting. It delivers the service and features that define the collection, with a full-service spa, beachfront access and a range of accommodations for couples and families alike.',
+        'Dining here is a highlight: Moomtaz Thai, El Pilón Dominican, Rodizio Brazilian churrascaría and the Tapas Lounge are all steps from your room.'
+      ],
+      feats: ['Full-service spa & wellness', 'Beachfront access', 'Five restaurants on site', 'Family-friendly accommodations', 'Resort pools', 'VIP services available'],
+      gallery: ['157c079e1d0690f', 'c7f98f0be6e0344', 'a32259edc608309', '881edcc56ff055f', '5b1bb2a4f712086']
+    },
+    {
+      id: 'crown-residence-suites', cat: 'hotel', area: 'puerto-plata', tier: 'All-Inclusive',
+      loc: 'Cofresí · Puerto Plata', name: 'Lifestyle Crown & Residence Suites', tagline: 'The comforts of home, five-star service',
+      price: 'from $118 / night', glance: ['All-inclusive', 'Full kitchens', 'Longer stays', 'Bellini Italian on site'],
+      short: 'Residence-style suites blending the comforts of home with five-star resort service.',
+      desc: [
+        'The Crown & Residence Suites offer sophisticated, residence-style living that blends the comforts of home with five-star resort service. Fully equipped kitchens, chic contemporary design and resort pools make these suites ideal for longer stays and families who want space without sacrificing service.',
+        'Bellini, the resort’s Italian restaurant, serves breakfast, lunch and dinner right at the Residence Suites.'
+      ],
+      feats: ['Fully equipped kitchens', 'Chic contemporary design', 'Resort pools', 'Ideal for longer stays', 'Five-star resort service', 'All-inclusive plan'],
+      gallery: ['fe7975493429820', 'f61a20a716396a8', '1bbe44d423db17e', 'c40a76ae6f2a32d', '2cf4b2c7c17470e']
+    },
+    {
+      id: 'presidential-suites', cat: 'hotel', area: 'puerto-plata', tier: 'Suites',
+      loc: 'Cofresí · Puerto Plata', name: 'Presidential Suites', tagline: 'Service beyond compare',
+      price: 'from $100 / night', glance: ['Studios to 2 bedrooms', 'Central location', 'Concierge', 'Jazz bistro on site'],
+      short: 'Studios and suites dramatically appointed with rich wood and stainless-steel finishes.',
+      desc: [
+        'The Presidential Suites offer a unique luxury accommodations experience with service and features beyond compare, in the easy, relaxed ambience of the Caribbean.',
+        'Studios and suites are dramatically decorated with dark, rich wood and stainless-steel accents, every detail crafted for comfort, from studios up to two-bedroom presidential suites. The Jazz French Bistro and the Blues restaurant are right at the property.'
+      ],
+      feats: ['Dark rich-wood interiors', 'Studios to 2-bedroom presidential suites', 'Stainless-steel finishes', 'Premium central location', 'Concierge service', 'All-inclusive plan available'],
+      gallery: ['cb07fb5f7ee5332', 'd64672772000e20', '542662dcbc0ff7e', '80c4bba028d029c', '43a48f0390273c1']
+    },
+    {
+      id: 'royal-suites', cat: 'hotel', area: 'puerto-plata', tier: 'Suites',
+      loc: 'Cofresí · Puerto Plata', name: 'The Royal Suites', tagline: 'Elevated suite living, refined',
+      price: 'from $300 / night', glance: ['Ocean & mountain views', 'VIP facilities', 'Spacious layouts', 'Concierge'],
+      short: 'Refined Caribbean style with full access to the resort’s VIP facilities.',
+      desc: [
+        'The Royal Suites deliver elevated suite living with refined Caribbean style. Spacious layouts showcase ocean and mountain views, and guests enjoy full access to the resort’s VIP facilities and services.',
+        'With Trapiche Paradise on site and the VIP beaches minutes away, it is a sophisticated home base for exploring everything the Amber Coast has to offer.'
+      ],
+      feats: ['VIP resort access', 'Spacious refined layouts', 'Ocean & mountain views', 'Contemporary Caribbean style', 'Trapiche Paradise restaurant', 'Concierge support'],
+      gallery: ['4bfb2f3cb062a4e', '0cac0f1194f0bbe', '89381896721dfeb', 'dc4c626eb499a0e', 'bf2765c8b506e5f']
+    },
+    {
+      id: 'sunrise-suites', cat: 'hotel', area: 'puerto-plata', tier: 'Suites',
+      loc: 'Cofresí · Puerto Plata', name: 'Sunrise Suites', tagline: 'Sea, sun, sand & sunrise views',
+      price: 'from $300 / night', glance: ['1–4 bedrooms', 'Private balconies', 'Full kitchens', 'Penthouse available'],
+      short: 'A four-story luxury building with mountain and ocean views over the entire complex.',
+      desc: [
+        'Sunrise Suites is ideally located in a four-story luxury building with stunning mountain and ocean views overlooking the entire complex in Puerto Plata. Sea, sun, sand and fun surround you here.',
+        'Choose from one-bedroom suites, two-bedroom suites and a four-bedroom luxury penthouse. Each features a king bed, private balcony, full kitchen, minibar, safe and coffee machine; select suites add a private plunge pool.'
+      ],
+      feats: ['1 & 2 bedroom suites', '4-bedroom luxury penthouse', 'Private balconies with ocean views', 'Full kitchens & minibars', 'Private plunge pools in select suites', 'Modern minimalist pool deck'],
+      gallery: ['447444bf7ed14a2', '27789c3c0ee4913', '97e5dcfd29a74a4', 'e912ea6cf37e697', '019969c253013d2', '4770522201793fb', '240a6c87585c624', '9d67c2834c1a59c']
+    },
+    {
+      id: 'cabarete', cat: 'hotel', area: 'cabarete', tier: 'Suites',
+      loc: 'Cabarete · North Coast', name: 'Presidential Suites Cabarete', tagline: 'A windsurfer’s turquoise paradise',
+      price: 'from $79 / night', glance: ['Apartment-style suites', 'Beachfront', 'Kite & windsurfing', 'Brick Oven dining'],
+      short: 'Breathtaking apartment-style units in a paradise of turquoise water and golden beach.',
+      desc: [
+        'Cabarete is the ideal spot for a true vacation adventure. With turquoise waters, an ever-present breeze, golden beaches and a tropical climate, it is a paradise for windsurfers and kite surfers from around the world, and scuba diving is popular too.',
+        'The Presidential Suites in Cabarete are breathtaking, with spacious apartment-style units, the rooftop Mila’s Sky Lounge and the artisan Brick Oven restaurant on site.'
+      ],
+      feats: ['Turquoise-water beachfront', 'Kite & windsurfing capital', 'Spacious apartment-style units', 'Brick Oven artisan dining', 'Rooftop sky lounge', 'North Coast adventure base'],
+      gallery: ['0cdb444daab1c7c', '4328fee2bb5291f', 'f7f97eae0e80095', 'a1621f38cfa242c', 'ac285383519ebd0']
+    }
+  ];
+  var CAT_LABEL = { hotel: 'Resort & Suites', villa: 'Private Villa' };
+
+  /* ---------- 4. Helpers ---------- */
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function url(page, params, hash) {
+    var u;
+    if (!page || page === 'home') { u = CFG.home || CFG.urls.home || CFG.base || '/'; }
+    else if (CFG.urls[page]) { u = CFG.urls[page]; }
+    else { u = (CFG.base || '/') + page + (CFG.ext ? CFG.ext : '/'); }
+    if (params) {
+      var q = [];
+      for (var k in params) { if (params[k] != null && params[k] !== '') { q.push(encodeURIComponent(k) + '=' + encodeURIComponent(params[k])); } }
+      if (q.length) { u += (u.indexOf('?') > -1 ? '&' : '?') + q.join('&'); }
+    }
+    if (hash) { u += '#' + hash; }
+    return u;
+  }
+  function param(name) {
+    var m = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.search);
+    return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null;
+  }
+  function priceHtml(price) {
+    if (!price) { return ''; }
+    var m = /^(from\s+)?(\$[\d,]+)\s*\/\s*(night|week|stay)$/i.exec(String(price).trim());
+    if (m) { return esc((m[1] || '') + m[2]) + '<small> / ' + m[3].toLowerCase() + '</small>'; }
+    return esc(price);
+  }
+  function findProp(id) { for (var i = 0; i < PROPERTIES.length; i++) { if (PROPERTIES[i].id === id) { return PROPERTIES[i]; } } return null; }
+  function cardImg(p) { return img(p.gallery[0], 800); }
+  function heroImg(p) { return img(p.gallery[0], 1900); }
+
+  /* ---------- 5. Nav & footer ---------- */
+  function logoHtml(extra) {
+    return '<a class="logo' + (extra ? ' ' + extra : '') + '" href="' + esc(url('home')) + '" aria-label="' + esc(SITE.legal) + ' home">' +
+      '<span class="logo-mark" aria-hidden="true"><span class="lm-text">C<em class="lm-amp">&amp;</em>R</span></span>' +
+      '<span class="logo-words"><span class="lw-name">' + esc(SITE.name) + '</span><span class="lw-sub">' + esc(SITE.sub) + '</span></span></a>';
+  }
+  function navHtml(current) {
+    var links = '';
+    for (var i = 0; i < SITE.nav.length; i++) {
+      var n = SITE.nav[i];
+      var cur = n.page === current ? ' aria-current="page"' : '';
+      links += '<li><a href="' + esc(url(n.page)) + '"' + cur + '>' + esc(n.label) + '</a></li>';
+    }
+    links += '<li><a href="' + esc(url(SITE.cta.page)) + '" class="nav-cta">' + esc(SITE.cta.label) + '</a></li>';
+    return '<nav class="nav" id="crNav" aria-label="Primary">' + logoHtml('') +
+      '<ul class="nav-links" id="crNavLinks">' + links + '</ul>' +
+      '<button class="menu-btn" id="crMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="crNavLinks"><span></span><span></span><span></span></button>' +
+      '</nav><div class="nav-backdrop" id="crNavBackdrop"></div>';
+  }
+  function footerHtml() {
+    var year = new Date().getFullYear();
+    var privacy = CFG.urls.privacy || ((CFG.base || '/') + 'privacy-policy/');
+    return '<footer class="footer" id="crFooter">' +
+      '<div class="foot-top">' +
+        '<div class="foot-brand">' + logoHtml('foot-logo') + '<p>' + esc(SITE.tagline) + '</p></div>' +
+        '<div class="foot-col"><h4>Stays</h4>' +
+          '<a href="' + esc(url('stays', { filter: 'hotel' })) + '">Resorts &amp; Suites</a>' +
+          '<a href="' + esc(url('stays', { filter: 'villa' })) + '">Private Villas</a>' +
+          '<a href="' + esc(url('stay', { stay: 'crown-villas' })) + '">The Crown Villas</a>' +
+          '<a href="' + esc(url('stay', { stay: 'cabarete' })) + '">Cabarete</a>' +
+          '<a href="' + esc(url('all-inclusive')) + '">All-Inclusive</a></div>' +
+        '<div class="foot-col"><h4>Discover</h4>' +
+          '<a href="' + esc(url('dining')) + '">Dining</a>' +
+          '<a href="' + esc(url('spa')) + '">Spa &amp; Wellness</a>' +
+          '<a href="' + esc(url('experiences')) + '">Experiences</a>' +
+          '<a href="' + esc(url('weddings')) + '">Weddings &amp; Events</a>' +
+          '<a href="' + esc(url('offers')) + '">Offers</a></div>' +
+        '<div class="foot-col"><h4>Contact</h4>' +
+          '<a href="mailto:' + esc(SITE.email) + '">' + esc(SITE.email) + '</a>' +
+          '<a href="tel:' + esc(SITE.phoneHref) + '">' + esc(SITE.phone) + '</a>' +
+          '<a href="' + esc(url('contact')) + '">Plan Your Escape</a></div>' +
+      '</div>' +
+      '<div class="foot-bottom"><span>&copy; ' + year + ' ' + esc(SITE.legal) + '. All rights reserved.</span>' +
+      '<span><a href="' + esc(privacy) + '">Privacy</a> &nbsp;·&nbsp; Terms &nbsp;·&nbsp; Booking Conditions</span></div>' +
+      '</footer>';
+  }
+
+  /* ---------- 6. Renderers ---------- */
+  function cardHtml(p, i) {
+    return '<a class="card reveal" href="' + esc(url('stay', { stay: p.id })) + '" data-cat="' + esc(p.cat + ' ' + p.area) + '" style="transition-delay:' + ((i % 3) * 0.08) + 's">' +
+      '<div class="card-img"><span class="card-cat">' + esc(CAT_LABEL[p.cat] || '') + '</span>' + (p.tier ? '<span class="card-tier">' + esc(p.tier) + '</span>' : '') +
+      '<img src="' + esc(cardImg(p)) + '" alt="' + esc(p.name) + '" loading="lazy"></div>' +
+      '<div class="card-body"><div class="loc">' + esc(p.loc) + '</div><div class="ctag">' + esc(p.tagline) + '</div><h3>' + esc(p.name) + '</h3><p>' + esc(p.short) + '</p>' +
+      '<div class="card-foot"><span class="price">' + priceHtml(p.price) + '</span><span class="more">View Stay →</span></div></div></a>';
+  }
+  function renderCards(container, list) {
+    if (!container) { return; }
+    var html = '';
+    for (var i = 0; i < list.length; i++) { html += cardHtml(list[i], i); }
+    container.innerHTML = html || '<div class="empty">No stays match this filter yet.</div>';
+  }
+  function miniHtml(p) {
+    return '<a class="mini" href="' + esc(url('stay', { stay: p.id })) + '"><img src="' + esc(cardImg(p)) + '" alt="' + esc(p.name) + '" loading="lazy">' +
+      '<div class="mini-b"><div class="loc">' + esc(p.loc) + '</div><h4>' + esc(p.name) + '</h4></div></a>';
+  }
+
+  function renderHome(root) {
+    var grid = $('#crFeatured', root);
+    if (!grid) { return; }
+    var ids = (grid.getAttribute('data-featured') || '').split(',');
+    var list = [];
+    for (var i = 0; i < ids.length; i++) { var p = findProp(ids[i].trim()); if (p) { list.push(p); } }
+    if (!list.length) { list = PROPERTIES.slice(0, 6); }
+    renderCards(grid, list);
+  }
+
+  function renderStays(root) {
+    var grid = $('#crGrid', root);
+    if (!grid) { return; }
+    renderCards(grid, PROPERTIES);
+    var initial = param('filter') || (window.location.hash ? window.location.hash.replace('#', '') : '') || 'all';
+    var btn = $('.filter-btn[data-filter="' + initial + '"]', root);
+    if (btn) { $$('.filter-btn', root).forEach(function (b) { b.classList.remove('active'); }); btn.classList.add('active'); }
+    applyFilter(grid, btn ? initial : 'all');
+  }
+
+  function renderProperty(root) {
+    var id = param('stay') || (window.location.hash ? window.location.hash.replace('#', '') : '');
+    var p = findProp(id) || PROPERTIES[0];
+    var el;
+    document.title = p.name + ' · ' + SITE.legal;
+    if ((el = $('#crHeroImg', root))) { el.src = heroImg(p); el.alt = p.name; }
+    if ((el = $('#crBcName', root))) { el.textContent = p.name; }
+    if ((el = $('#crTier', root))) { el.textContent = p.tier || CAT_LABEL[p.cat]; }
+    if ((el = $('#crName', root))) { el.textContent = p.name; }
+    if ((el = $('#crTagline', root))) { el.textContent = p.tagline; }
+    if ((el = $('#crLoc', root))) { el.textContent = p.loc; }
+    if ((el = $('#crAboutTitle', root))) { el.innerHTML = 'Discover <span class="script">' + esc(p.name) + '</span>'; }
+    if ((el = $('#crDesc', root))) {
+      var paras = Array.isArray(p.desc) ? p.desc : [p.desc];
+      el.innerHTML = paras.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+    }
+    if ((el = $('#crGlance', root))) { el.innerHTML = (p.glance || []).map(function (g) { return '<span>' + esc(g) + '</span>'; }).join(''); }
+    if ((el = $('#crFeats', root))) { el.innerHTML = p.feats.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join(''); }
+    if ((el = $('#crSidePrice', root))) { el.innerHTML = priceHtml(p.price); }
+    if ((el = $('#crInquire', root))) { el.href = url('contact', { stay: p.id }, 'inquiry'); }
+    if ((el = $('#crGallery', root))) {
+      el.innerHTML = p.gallery.map(function (gid, i) {
+        return '<div class="g-item" data-index="' + i + '"><img src="' + esc(img(gid, 1400)) + '" alt="' + esc(p.name + ' ' + (i + 1)) + '" loading="' + (i ? 'lazy' : 'eager') + '"></div>';
+      }).join('');
+      var items = p.gallery.map(function (gid, i) { return { src: img(gid, 1900), cap: p.name + ' · ' + (i + 1) + ' of ' + p.gallery.length }; });
+      $$('.g-item', el).forEach(function (d) { d.addEventListener('click', function () { openLb(items, parseInt(d.getAttribute('data-index'), 10) || 0); }); });
+    }
+    if ((el = $('#crMore', root))) {
+      var same = PROPERTIES.filter(function (x) { return x.id !== p.id && x.cat === p.cat; });
+      var other = PROPERTIES.filter(function (x) { return x.id !== p.id && x.cat !== p.cat; });
+      el.innerHTML = same.concat(other).slice(0, 3).map(miniHtml).join('');
+    }
+  }
+
+  /* ---------- 7. Shared behaviour ---------- */
+  function applyFilter(container, filter) {
+    var any = false;
+    $$('[data-cat]', container).forEach(function (item) {
+      var cats = (item.getAttribute('data-cat') || '').split(/\s+/);
+      var show = filter === 'all' || cats.indexOf(filter) > -1;
+      item.classList.toggle('hidden', !show);
+      if (show) { any = true; }
+    });
+    var empty = $('.empty', container);
+    if (!empty && !any) { var d = document.createElement('div'); d.className = 'empty'; d.textContent = 'Nothing matches this filter yet.'; container.appendChild(d); }
+    else if (empty) { empty.style.display = any ? 'none' : ''; }
+    observeReveals();
+  }
+  function initFilters(root) {
+    $$('[data-filter-group]', root).forEach(function (group) {
+      var targetSel = group.getAttribute('data-filter-target');
+      var target = targetSel ? $(targetSel, root) : group;
+      var buttons = $$('.filter-btn', group);
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          buttons.forEach(function (x) { x.classList.remove('active'); });
+          b.classList.add('active');
+          applyFilter(target, b.getAttribute('data-filter') || 'all');
+        });
+      });
+    });
+  }
+  function initTabs(root) {
+    $$('[data-tabs]', root).forEach(function (box) {
+      var buttons = $$('.tab-btn', box);
+      var panels = $$('.tab-panel', box);
+      function show(name) {
+        buttons.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-tab') === name); });
+        panels.forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-panel') === name); });
+        observeReveals();
+      }
+      buttons.forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-tab')); }); });
+      var want = param('tab') || (window.location.hash ? window.location.hash.replace('#', '') : '');
+      var ok = buttons.some(function (b) { return b.getAttribute('data-tab') === want; });
+      show(ok ? want : (buttons[0] ? buttons[0].getAttribute('data-tab') : ''));
+    });
+  }
+
+  /* Lightbox (shared by galleries and any [data-lightbox] group) */
+  var lbEl, lbItems = [], lbIndex = 0;
+  function ensureLb(root) {
+    if (lbEl) { return lbEl; }
+    lbEl = document.createElement('div');
+    lbEl.className = 'lb'; lbEl.id = 'crLb'; lbEl.setAttribute('role', 'dialog'); lbEl.setAttribute('aria-label', 'Image viewer');
+    lbEl.innerHTML = '<button class="lb-close" type="button" aria-label="Close">×</button>' +
+      '<button class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>' +
+      '<img id="crLbImg" src="" alt="">' +
+      '<button class="lb-nav lb-next" type="button" aria-label="Next">›</button>' +
+      '<div class="lb-count" id="crLbCount"></div><div class="lb-cap" id="crLbCap"></div>';
+    root.appendChild(lbEl);
+    $('.lb-close', lbEl).addEventListener('click', closeLb);
+    $('.lb-prev', lbEl).addEventListener('click', function () { navLb(-1); });
+    $('.lb-next', lbEl).addEventListener('click', function () { navLb(1); });
+    lbEl.addEventListener('click', function (e) { if (e.target === lbEl) { closeLb(); } });
+    document.addEventListener('keydown', function (e) {
+      if (!lbEl.classList.contains('open')) { return; }
+      if (e.key === 'Escape') { closeLb(); }
+      if (e.key === 'ArrowRight') { navLb(1); }
+      if (e.key === 'ArrowLeft') { navLb(-1); }
+    });
+    return lbEl;
+  }
+  function openLb(items, i) {
+    lbItems = items; lbIndex = i;
+    var it = items[i];
+    $('#crLbImg').src = it.src;
+    $('#crLbImg').alt = it.cap || '';
+    $('#crLbCount').textContent = (i + 1) + ' / ' + items.length;
+    $('#crLbCap').textContent = it.cap || '';
+    lbEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() { lbEl.classList.remove('open'); document.body.style.overflow = ''; }
+  function navLb(d) { if (!lbItems.length) { return; } lbIndex = (lbIndex + d + lbItems.length) % lbItems.length; openLb(lbItems, lbIndex); }
+  function initLightboxGroups(root) {
+    $$('[data-lightbox]', root).forEach(function (group) {
+      var imgs = $$('img', group);
+      var items = imgs.map(function (im) { return { src: im.getAttribute('data-full') || im.src, cap: im.alt }; });
+      imgs.forEach(function (im, i) {
+        im.style.cursor = 'zoom-in';
+        im.addEventListener('click', function (e) { e.preventDefault(); openLb(items, i); });
+      });
+    });
+  }
+
+  /* Reveal-on-scroll */
+  var io;
+  function observeReveals() {
+    var els = $$('.reveal:not(.in)');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+    if (!io) {
+      io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+    }
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Navigation behaviour */
+  function initNav(root) {
+    var nav = $('#crNav', root), links = $('#crNavLinks', root), btn = $('#crMenuBtn', root), backdrop = $('#crNavBackdrop', root);
+    if (!nav) { return; }
+    var first = null;
+    for (var i = 0; i < root.children.length; i++) {
+      var c = root.children[i];
+      if (!c.classList.contains('nav') && !c.classList.contains('nav-backdrop')) { first = c; break; }
+    }
+    if (!first || !(first.classList.contains('hero') || first.classList.contains('page-hero') || first.classList.contains('p-hero'))) { nav.classList.add('solid'); }
+    function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 60); }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    function setOpen(open) {
+      links.classList.toggle('open', open); nav.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    btn.addEventListener('click', function () { setOpen(!links.classList.contains('open')); });
+    backdrop.addEventListener('click', function () { setOpen(false); });
+    $$('a', links).forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && links.classList.contains('open')) { setOpen(false); } });
+  }
+
+  /* Portable links: <a data-href="stays"> resolves to the right URL in WordPress and in local previews */
+  function initLinks(root) {
+    $$('a[data-href]', root).forEach(function (a) {
+      var page = a.getAttribute('data-href');
+      var params = null;
+      if (a.getAttribute('data-stay')) { params = { stay: a.getAttribute('data-stay') }; }
+      if (a.getAttribute('data-filter-link')) { params = { filter: a.getAttribute('data-filter-link') }; }
+      a.href = url(page, params, a.getAttribute('data-hash') || '');
+    });
+    $$('a[href^="#"]', root).forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href').slice(1);
+        var target = id ? document.getElementById(id) : null;
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (history.replaceState) { history.replaceState(null, '', '#' + id); } }
+      });
+    });
+    $$('[data-year]', root).forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
+  }
+
+  /* Inquiry forms */
+  var ERRORS = {
+    invalid: 'Please add your name and a valid email address so an advisor can reply.',
+    consent: 'Please accept the privacy notice so we may contact you.',
+    spam: 'Your submission could not be verified. Please try again, or email us directly.',
+    rate: 'Please wait a moment before sending another request.',
+    mail: 'The message could not be sent from the website. Please email us directly and we will reply promptly.'
+  };
+  function fillPropertySelects(root) {
+    $$('select[data-properties]', root).forEach(function (sel) {
+      var want = param('stay') || '';
+      var html = '<option value="">Any property / not sure yet</option>';
+      var groups = [['Resorts & Suites', 'hotel'], ['Private Villas', 'villa']];
+      groups.forEach(function (g) {
+        html += '<optgroup label="' + esc(g[0]) + '">';
+        PROPERTIES.filter(function (p) { return p.cat === g[1]; }).forEach(function (p) {
+          html += '<option value="' + esc(p.name) + '"' + (p.id === want ? ' selected' : '') + '>' + esc(p.name) + '</option>';
+        });
+        html += '</optgroup>';
+      });
+      sel.innerHTML = html;
+    });
+  }
+  function initForms(root) {
+    fillPropertySelects(root);
+    $$('form[data-cr-form]', root).forEach(function (f) {
+      var t = f.querySelector('input[name="cr_t"]'); if (t) { t.value = String(Math.floor(Date.now() / 1000)); }
+      var subj = param('subject'); var subjEl = f.querySelector('[name="subject"]');
+      if (subj && subjEl) { subjEl.value = subj; }
+      if (CFG.formMode === 'post' && CFG.formAction) {
+        f.setAttribute('action', CFG.formAction); f.setAttribute('method', 'post');
+        var r = f.querySelector('input[name="cr_redirect"]');
+        if (r) { r.value = window.location.href.split('#')[0].replace(/[?&]cr_(sent|error)=[^&]*/g, '').replace(/\?$/, ''); }
+      } else {
+        f.addEventListener('submit', function (e) { e.preventDefault(); mailtoSubmit(f, root); });
+      }
+    });
+    var sent = param('cr_sent'), err = param('cr_error');
+    var n = $('#crFormNotice', root);
+    if (n && (sent || err)) {
+      n.hidden = false;
+      n.textContent = sent ? 'Thank you. Your request has been received and a C&R advisor will reply within one business day.' : (ERRORS[err] || ERRORS.mail);
+      n.classList.toggle('error', !!err);
+      setTimeout(function () { n.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
+    }
+  }
+  function mailtoSubmit(f, root) {
+    var lines = [];
+    $$('input, select, textarea', f).forEach(function (el) {
+      if (!el.name || el.type === 'hidden' || el.name === 'website' || el.name === 'action') { return; }
+      if (el.type === 'checkbox') { if (el.checked) { lines.push(el.name + ': yes'); } return; }
+      if (el.value) { lines.push((el.getAttribute('data-label') || el.name) + ': ' + el.value); }
+    });
+    var subjEl = f.querySelector('[name="subject"]');
+    var subject = '[C&R Inquiry] ' + (subjEl && subjEl.value ? subjEl.value : 'General');
+    window.location.href = 'mailto:' + SITE.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+    var n = $('#crFormNotice', root);
+    if (n) { n.hidden = false; n.classList.remove('error'); n.textContent = 'Your email app should open with the request pre-filled. If it does not, write to ' + SITE.email + '.'; }
+  }
+
+  /* ---------- 8. Boot ---------- */
+  var PAGES = { home: renderHome, stays: renderStays, stay: renderProperty };
+  function boot() {
+    var root = $('.cr[data-page]');
+    if (!root) { return; }
+    document.documentElement.classList.add('cr-html');
+    document.body.classList.add('cr-body');
+    var page = root.getAttribute('data-page') || '';
+    root.insertAdjacentHTML('afterbegin', navHtml(page));
+    root.insertAdjacentHTML('beforeend', footerHtml());
+    ensureLb(root);
+    if (PAGES[page]) { PAGES[page](root); }
+    initLinks(root);
+    initNav(root);
+    initFilters(root);
+    initTabs(root);
+    initLightboxGroups(root);
+    initForms(root);
+    observeReveals();
+  }
+  window.CR = { site: SITE, properties: PROPERTIES, url: url, img: img, config: CFG };
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+})();
+
+</script>
+</body>
+</html>
