@@ -11,8 +11,8 @@ Legend: `[ ]` to do · `[x]` done · **(you)** must be done by you in hPanel/Wor
 - [x] A3 (Claude) Build the WordPress plugin, blank-canvas template, page installer and inquiry-form handler.
 - [x] A4 (Claude) Build script, local previews (`preview/`) and plugin zip (`dist/`).
 - [x] A5 (Claude) Write this task list, the deployment guide and the site reference.
-- [ ] A6 (you) Open `preview/index.html` in a browser and click through every page. Note anything to change before going live.
-- [ ] A7 (you) Decide the real contact email and phone number (currently `concierge@crluxurioustravel.com` and a placeholder phone). Tell Claude; Claude updates `cr-site.js`, `contact.html`, rebuilds. Guide 5.2.
+- [x] A6 (you) Open `preview/index.html` in a browser and click through every page. Note anything to change before going live.
+- [x] A7 (you) Contact details confirmed on 3 September 2026: `concierge@crluxurioustravel.com` and `+1 (914) 481-3073`. Applied to `cr-site.js` and `contact.html`, rebuilt. Guide 5.2.
 - [ ] A8 (you) Confirm the "from" rates and the wedding package prices you want shown, or ask Claude to remove prices entirely. See "Content to verify" in [03-site-reference.md](03-site-reference.md).
 
 ## Phase B: install (about 15 minutes in WordPress)

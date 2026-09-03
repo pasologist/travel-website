@@ -163,7 +163,7 @@ The theme is wrapping the content in a narrow column. Either apply the blank tem
 
 ### 5.2 Contact details
 
-The email `concierge@crluxurioustravel.com` and the placeholder phone `+1 (000) 000-0000` are set in **two places**: the `SITE` object at the top of `assets/cr-site.js` (navigation, footer, mailto fallback) and the contact cards in `pages/contact.html`. Change both, rebuild, re-upload the plugin (section 6). Create the mailbox in **hPanel → Emails** if it does not exist yet.
+The email `concierge@crluxurioustravel.com` and the phone `+1 (914) 481-3073` (both confirmed on 3 September 2026) are set in **two places**: the `SITE` object at the top of `assets/cr-site.js` (navigation, footer, mailto fallback) and the contact cards in `pages/contact.html`. Change both, rebuild, re-upload the plugin (section 6). Create the mailbox in **hPanel → Emails** if it does not exist yet.
 
 ### 5.3 Reliable form email (SMTP)
 

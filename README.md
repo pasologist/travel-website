@@ -30,4 +30,4 @@ To change anything, edit the files under `wordpress/plugin/cr-luxurious-travel/`
 
 ## Status
 
-Built on 2 September 2026. Not yet installed on the Hostinger site; the contact phone number is a placeholder and prices are the resorts' published starting rates pending confirmation (see `docs/03-site-reference.md`, section 6).
+Built on 2 September 2026. Not yet installed on the Hostinger site; prices are the resorts' published starting rates pending confirmation (see `docs/03-site-reference.md`, section 6).

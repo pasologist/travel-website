@@ -106,7 +106,7 @@ These values were taken from the reference site on 2 September 2026 and should b
 - **Wedding packages** (`pages/weddings.html`): $1,100 / $1,850 / $5,950 / $7,500 / $9,000 / $11,500. The reference page listed the two "Love in Paradise" tiers in an order that looked swapped; the site shows the Supreme tier as the higher price.
 - **Excursion prices** (`pages/experiences.html`) and **restaurant hours** (`pages/dining.html`).
 - **Offers** (`pages/offers.html`): 5×4, up to 40%, flight + hotel up to 45%, extra 5% non-refundable, extra 10% loyalty. The sixth card (villa reunion rates) is a C&R offer, not a resort promotion.
-- **Contact details**: email and phone placeholders (see the deployment guide, 5.2). Resort address Cofresí Beach #1, Puerto Plata 57000.
+- **Contact details**: confirmed on 3 September 2026 (`concierge@crluxurioustravel.com`, `+1 (914) 481-3073`). Resort address Cofresí Beach #1, Puerto Plata 57000.
 - **Statistics** on the home page: 11 properties, 1,180+ rooms, 14 pools, 2 beaches, 7 hotels, 11 restaurants, 13 bars (from the reference site), and 300,000+ exchange destinations / 110+ countries (from your example files).
 
 ## 7. Behaviour reference (what the script does)
