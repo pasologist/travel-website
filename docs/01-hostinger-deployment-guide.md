@@ -239,7 +239,21 @@ This is a per-application password for one WordPress user, created inside WordPr
 3. WordPress shows a 24-character password in six blocks, once. Copy it now.
 4. Requirements: WordPress 5.6 or later and the site served over HTTPS (Hostinger provides this; confirm it in section 5.4).
 
-Claude then needs three things: the site URL, the WordPress username, and that password.
+Claude then needs three things: the site URL, the WordPress username, and that password. Keep them in a `key = value` file outside this repository, one per line:
+
+```
+site url             = https://yourdomain.com
+wp username          = your-wordpress-login
+application password = xxxx xxxx xxxx xxxx xxxx xxxx
+```
+
+Then verify the connection with the helper in this repo, which reads that file and never prints a secret:
+
+```bash
+CR_CRED_FILE="/path/to/your/credentials.txt" bash tools/wp-connect.sh check
+```
+
+It reports the site name, who you are authenticated as, and whether settings are writable. `pages` and `plugins` are the other two commands.
 
 **What it allows.** Create, edit and delete pages, including setting each page's template. Read and change the site title, tagline, site icon, and which page is the front page. Activate or deactivate an already-installed plugin. Read the rendered pages back to verify a change landed.
 
