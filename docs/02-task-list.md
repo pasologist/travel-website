@@ -50,7 +50,7 @@ Legend: `[ ]` to do · `[x]` done · **(you)** must be done by you in hPanel/Wor
 - [ ] E2 Adjust copy, prices, offers or packages; Claude edits the repo files and rebuilds.
 - [ ] E3 Add a Terms / Booking Conditions page and link it from the footer (currently plain text).
 - [ ] E4 Add Instagram/Facebook links to the footer once the accounts exist.
-- [ ] E5 Optional: create a WordPress Application Password so Claude can push page updates through the REST API next time. Guide 6.
+- [ ] E5 Optional: give Claude direct access so it can do Phase B and later edits for you. Guide 8 explains the four routes and what each unlocks. Shortest useful pair: a **WordPress Application Password** (guide 8.1) plus **SFTP credentials** (guide 8.2), which together cover B3, B4, B6, D7 and all of Phase E and F.
 
 ## Phase F: routine updates
 
@@ -60,5 +60,6 @@ Legend: `[ ]` to do · `[x]` done · **(you)** must be done by you in hPanel/Wor
 
 ## Blocked or unavailable in this session
 
-- The claude.ai **WordPress.com** connector is not authorised in this environment and is designed for WordPress.com-hosted sites, so Claude could not create the pages on your Hostinger site directly. The plugin route replaces that step with one upload. If you want direct pushes later, do E5 and authorise the connector (or provide the REST credentials) in a future session.
+- The claude.ai **WordPress.com** connector is not authorised in this environment and is designed for WordPress.com-hosted sites, so Claude could not create the pages on your Hostinger site directly. The plugin route replaces that step with one upload. For direct access from chat, use the WordPress REST API instead of that connector: see task E5 and guide section 8.
+- The **Hostinger API MCP server** (guide 8.4) needs Node.js, which is not installed on this machine, and must be added from an interactive terminal. It covers hosting infrastructure rather than page content, so it is a convenience rather than a requirement.
 - No PHP interpreter is installed on this computer, so the plugin was reviewed by reading, not executed. It uses only standard WordPress APIs (documented in the guide's sources). If activation ever reports an error, paste the message to Claude.

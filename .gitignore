@@ -1,0 +1,7 @@
+# Local credential files must never be committed
+*.credentials
+*credentials*.txt
+.env
+.env.*
+
+# Build outputs are committed on purpose, so nothing else is ignored here.

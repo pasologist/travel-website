@@ -224,6 +224,83 @@ To let Claude push page updates directly through the WordPress REST API in a fut
 
 ---
 
+## 8. Giving Claude direct access (optional)
+
+There is no single "connect my Hostinger account" button. Access comes in four separate pieces, each granting different powers. You can enable one, several or none; the plugin route in section 2 works without any of them.
+
+Read section 8.5 on secret handling before creating any credential.
+
+### 8.1 WordPress Application Password — the useful one
+
+This is a per-application password for one WordPress user, created inside WordPress, revocable at any time. It authenticates the WordPress REST API, which is where the site's pages live.
+
+1. WordPress admin → **Users → Profile** (or Users → your user → Edit).
+2. Scroll to **Application Passwords**. Enter a name such as `Claude Code` and click **Add New Application Password**.
+3. WordPress shows a 24-character password in six blocks, once. Copy it now.
+4. Requirements: WordPress 5.6 or later and the site served over HTTPS (Hostinger provides this; confirm it in section 5.4).
+
+Claude then needs three things: the site URL, the WordPress username, and that password.
+
+**What it allows.** Create, edit and delete pages, including setting each page's template. Read and change the site title, tagline, site icon, and which page is the front page. Activate or deactivate an already-installed plugin. Read the rendered pages back to verify a change landed.
+
+**What it does not allow.** Installing a plugin from a zip file (the REST endpoint only installs from the WordPress.org directory by slug), setting the permalink structure, flushing the server cache, changing the privacy-policy page setting, or reading the C&R Inquiries list (that post type is deliberately not exposed to the REST API).
+
+**Caution.** An application password carries the full capability of the user it belongs to. Create it on the admin account only for as long as the work needs it, then delete it from the same screen.
+
+### 8.2 SFTP — for installing the plugin without a browser
+
+Every Hostinger plan includes SFTP. It is the way to place the plugin folder on the server without using the Upload Plugin screen.
+
+1. hPanel → **Websites → Dashboard → Files → FTP Accounts**.
+2. Note the FTP/SFTP host, port, username, and set or reveal the password.
+3. Claude needs those four values.
+
+**What it allows.** Uploading `wordpress/plugin/cr-luxurious-travel/` straight to `public_html/wp-content/plugins/`. Paired with 8.1, Claude can upload the plugin and then activate it over REST, at which point the plugin creates the ten pages itself. That covers task B3 end to end.
+
+It also allows reading and editing theme files and `wp-config.php`, so treat the credential accordingly.
+
+### 8.3 SSH and WP-CLI — the most capable, plan-dependent
+
+SSH access is included on the Premium and Business web hosting plans and on cloud plans, not on the entry-level plan. Check hPanel → **Websites → Dashboard → Advanced → SSH Access**; if the section offers to enable it, your plan includes it.
+
+**What it adds over the two above.** WP-CLI, which can do essentially anything the admin screens can: install and activate plugins from a zip, set the permalink structure, flush the LiteSpeed cache, import and export content, and run database queries. If you have it, it is the shortest path for the awkward leftovers in Phase B.
+
+The OpenSSH client needed at this end is already present on this machine.
+
+### 8.4 Hostinger API MCP server — infrastructure, not page content
+
+Hostinger publishes an official MCP server that exposes its account API to AI tools. It is aimed at the hosting account rather than the contents of a WordPress site: domains and DNS, VPS, billing and subscriptions, hosting operations, and WordPress *installations* (create a new WordPress install, list existing ones). Newer Hostinger documentation also describes per-site WordPress MCP instances; what those expose was not verified while writing this guide, so do not assume they can edit page content.
+
+Setup, in an **interactive** terminal (Claude cannot complete an OAuth or approval prompt in an automated session):
+
+1. Install Node.js 20 or later from <https://nodejs.org> (it is **not** currently installed on this machine).
+2. `npm install -g hostinger-api-mcp`
+3. hPanel → **profile icon → Account Information → API → Generate token**. Copy the token; it is shown once.
+4. In the project folder, run:
+
+   ```bash
+   claude mcp add --scope local --transport stdio --env API_TOKEN=<your token> hostinger-api -- hostinger-api-mcp
+   ```
+
+5. Start Claude Code and run `/mcp` to confirm the server shows as connected.
+
+Use `--scope local` (the default) so the token stays out of the repository. Never use `--scope project`, which writes `.mcp.json` into git.
+
+**Verdict.** Worth adding if you want help with DNS, domains, backups or cache from chat. It is not a substitute for 8.1, and it is the only option here that requires installing new software.
+
+### 8.5 Handling the secrets
+
+- Do not paste passwords or tokens into the chat if you can avoid it. Instead put them in a file **outside** this repository, for example `C:\Users\rpaso\.cr-credentials.txt`, and tell Claude the path. Claude reads it when a step needs it.
+- If a credential ever does land in a file inside the repo, add it to `.gitignore` before committing anything.
+- Revoke when finished: application passwords from Users → Profile, API tokens from hPanel → Account Information → API, FTP accounts from Files → FTP Accounts.
+- Rotate immediately if a credential is pasted somewhere you did not intend.
+
+### 8.6 What stays manual whatever you connect
+
+Logging in, buying or upgrading a plan, generating the credentials above, completing any OAuth prompt, setting the permalink structure and the privacy-policy page through the admin screens, configuring SMTP with a mailbox password, and confirming the SSL certificate. These are either browser-only or require a secret only you should type.
+
+---
+
 ## Sources consulted
 
 - Hostinger, *How to add custom CSS to WordPress (4 methods)*: <https://www.hostinger.com/tutorials/wordpress-custom-css>
@@ -236,3 +313,9 @@ To let Claude push page updates directly through the WordPress REST API in a fut
 - WordPress Developer Reference, `theme_page_templates` hook: <https://developer.wordpress.org/reference/hooks/theme_page_templates/>
 - WPBeginner, *Best contact form plugins* (WPForms Lite recommendation): <https://www.wpbeginner.com/plugins/5-best-contact-form-plugins-for-wordpress-compared/>
 - Reference site (used with the owners' permission): <https://www.lhvcresorts.com/en/>
+- Hostinger, *Hostinger API MCP Server*: <https://www.hostinger.com/support/11079316-hostinger-api-mcp-server/>
+- Hostinger, *How to run your own Hostinger API MCP server*: <https://www.hostinger.com/tutorials/how-to-run-hostinger-api-mcp-server/>
+- Hostinger, *How to enable SSH access*: <https://www.hostinger.com/support/1583645-how-to-enable-ssh-access-in-hostinger/>
+- WordPress Developer Reference, *Application Passwords* and *Authentication*: <https://developer.wordpress.org/rest-api/reference/application-passwords/>, <https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/>
+- WordPress Developer Reference, *Site Settings* and *Plugins* endpoints: <https://developer.wordpress.org/rest-api/reference/settings/>, <https://developer.wordpress.org/rest-api/reference/plugins/>
+- Claude Code documentation, *MCP*: <https://code.claude.com/docs/en/mcp>
