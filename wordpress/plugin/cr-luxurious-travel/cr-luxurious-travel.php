@@ -3,7 +3,7 @@
  * Plugin Name:       C&R Luxurious Travel
  * Plugin URI:        https://github.com/pasologist/travel-website
  * Description:       Installs the C&R Luxurious Travel website: Piece 1 (global styles), Piece 2 (global script + page HTML), a blank-canvas page template, a one-click page installer and the inquiry-form mailer.
- * Version:           1.0.0
+ * Version:           1.3.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            C&R Luxurious Travel
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CRLT_VERSION', '1.0.0' );
+define( 'CRLT_VERSION', '1.3.0' );
 define( 'CRLT_FILE', __FILE__ );
 define( 'CRLT_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CRLT_URL', plugin_dir_url( __FILE__ ) );
@@ -39,6 +39,7 @@ function crlt_pages() {
 		'weddings'      => array( 'title' => 'Weddings & Events', 'file' => 'weddings.html' ),
 		'offers'        => array( 'title' => 'Offers',            'file' => 'offers.html' ),
 		'contact'       => array( 'title' => 'Contact',           'file' => 'contact.html' ),
+		'privacy'       => array( 'title' => 'Privacy Notice',    'file' => 'privacy.html' ),
 	);
 }
 
@@ -99,7 +100,51 @@ function crlt_enqueue_assets() {
 		'formMode'   => 'post',
 		'preview'    => false,
 	);
-	wp_add_inline_script( 'crlt-site', 'window.CR_CONFIG = ' . wp_json_encode( $cfg ) . ';', 'before' );
+	// Printed in the head by crlt_print_config() rather than attached as an
+	// inline script, so the tag can carry the no-optimise attributes below.
+	$GLOBALS['crlt_config'] = $cfg;
+}
+
+/**
+ * Keep optimisation plugins away from the C&R script.
+ *
+ * LiteSpeed Cache (active on Hostinger by default) rewrites script tags to
+ * type="litespeed/javascript" so they only execute after load or on first
+ * interaction. The C&R script builds the navigation, footer, stay cards and
+ * property pages, so deferring it leaves visitors looking at a page with no
+ * navigation until they interact. These attributes are the documented opt-out
+ * for LiteSpeed, Autoptimize, WP Rocket and Cloudflare Rocket Loader.
+ */
+function crlt_no_optimize_attrs() {
+	return 'data-no-optimize="1" data-no-defer="1" data-no-delay="1" data-cfasync="false"';
+}
+
+add_action( 'wp_head', 'crlt_print_config', 5 );
+function crlt_print_config() {
+	if ( empty( $GLOBALS['crlt_config'] ) ) {
+		return;
+	}
+	printf(
+		"<script %s>window.CR_CONFIG = %s;</script>\n",
+		crlt_no_optimize_attrs(), // phpcs:ignore WordPress.Security.EscapeOutput
+		wp_json_encode( $GLOBALS['crlt_config'] )
+	);
+}
+
+add_filter( 'script_loader_tag', 'crlt_script_loader_tag', 10, 2 );
+function crlt_script_loader_tag( $tag, $handle ) {
+	if ( 'crlt-site' !== $handle ) {
+		return $tag;
+	}
+	return str_replace( '<script ', '<script ' . crlt_no_optimize_attrs() . ' ', $tag );
+}
+
+add_filter( 'style_loader_tag', 'crlt_style_loader_tag', 10, 2 );
+function crlt_style_loader_tag( $tag, $handle ) {
+	if ( ! in_array( $handle, array( 'crlt-style', 'crlt-fonts' ), true ) ) {
+		return $tag;
+	}
+	return str_replace( '<link ', '<link ' . crlt_no_optimize_attrs() . ' ', $tag );
 }
 
 add_filter( 'wp_resource_hints', 'crlt_resource_hints', 10, 2 );
@@ -163,6 +208,25 @@ function crlt_register_block_template() {
 			'post_types'  => array( 'page' ),
 		)
 	);
+}
+
+/**
+ * Make the front page honour its own template.
+ *
+ * WordPress checks is_front_page() before is_page(), so a theme that ships a
+ * front-page template wins over the template assigned to the page itself. The
+ * Hostinger AI theme does ship one, which put its header and footer back on
+ * the C&R home page. Prepending our template to the front-page hierarchy
+ * restores the intended blank canvas, and only when the page really is ours.
+ */
+add_filter( 'frontpage_template_hierarchy', 'crlt_frontpage_template_hierarchy' );
+function crlt_frontpage_template_hierarchy( $templates ) {
+	$front_id = (int) get_option( 'page_on_front' );
+	if ( $front_id && crlt_is_cr_page( $front_id )
+		&& in_array( get_page_template_slug( $front_id ), array( CRLT_TEMPLATE_CLASSIC, CRLT_TEMPLATE_BLOCK ), true ) ) {
+		array_unshift( $templates, CRLT_TEMPLATE_BLOCK . '.php' );
+	}
+	return $templates;
 }
 
 /* -------------------------------------------------------------------------
@@ -480,4 +544,155 @@ function crlt_handle_inquiry() {
 	}
 	wp_safe_redirect( add_query_arg( 'cr_sent', '1', $redirect ) . '#inquiry' );
 	exit;
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Site maintenance REST API  (administrators only)
+ * -------------------------------------------------------------------------
+ * Exposes the handful of site settings WordPress core does not put in
+ * /wp/v2/settings, so the deployment checklist can be completed from the
+ * command line instead of by clicking through wp-admin.
+ *
+ * Every route requires the `manage_options` capability, so it grants nothing
+ * an administrator could not already do in the dashboard. Writes are limited
+ * to the named keys handled below.
+ *
+ *   GET  /wp-json/crlt/v1/site   diagnostic snapshot
+ *   POST /wp-json/crlt/v1/site   apply changes, one or more keys at a time
+ * ---------------------------------------------------------------------- */
+add_action( 'rest_api_init', 'crlt_register_rest_routes' );
+function crlt_register_rest_routes() {
+	$can = function () {
+		return current_user_can( 'manage_options' );
+	};
+	register_rest_route(
+		'crlt/v1',
+		'/site',
+		array(
+			array( 'methods' => 'GET',  'callback' => 'crlt_rest_get_site',  'permission_callback' => $can ),
+			array( 'methods' => 'POST', 'callback' => 'crlt_rest_post_site', 'permission_callback' => $can ),
+		)
+	);
+}
+
+/** Name of the Hostinger Tools settings option (holds maintenance_mode). */
+function crlt_hostinger_option_name() {
+	return defined( 'HOSTINGER_PLUGIN_SETTINGS_OPTION' ) ? HOSTINGER_PLUGIN_SETTINGS_OPTION : 'hostinger_tools';
+}
+
+function crlt_rest_get_site() {
+	$pages = array();
+	foreach ( crlt_pages() as $slug => $meta ) {
+		$p              = get_page_by_path( $slug, OBJECT, 'page' );
+		$pages[ $slug ] = $p
+			? array(
+				'id'       => $p->ID,
+				'status'   => $p->post_status,
+				'template' => get_page_template_slug( $p ),
+				'bytes'    => strlen( $p->post_content ),
+				'link'     => get_permalink( $p ),
+			)
+			: null;
+	}
+	$ht      = get_option( crlt_hostinger_option_name(), array() );
+	$counts  = wp_count_posts( 'cr_inquiry' );
+
+	return array(
+		'wp_version'          => get_bloginfo( 'version' ),
+		'theme'               => wp_get_theme()->get( 'Name' ),
+		'is_block_theme'      => crlt_is_block_theme(),
+		'permalink_structure' => get_option( 'permalink_structure' ),
+		'show_on_front'       => get_option( 'show_on_front' ),
+		'page_on_front'       => (int) get_option( 'page_on_front' ),
+		'blog_public'         => (int) get_option( 'blog_public' ),
+		'privacy_page'        => (int) get_option( 'wp_page_for_privacy_policy' ),
+		'inquiry_email'       => get_option( 'crlt_inquiry_email', get_option( 'admin_email' ) ),
+		'coming_soon'         => ! empty( $ht['maintenance_mode'] ),
+		'template_value'      => crlt_template_value(),
+		'pages'               => $pages,
+		'inquiries'           => $counts ? (int) $counts->private : 0,
+	);
+}
+
+function crlt_rest_post_site( WP_REST_Request $request ) {
+	$in   = $request->get_json_params();
+	$in   = is_array( $in ) ? $in : array();
+	$done = array();
+
+	if ( isset( $in['permalink_structure'] ) ) {
+		global $wp_rewrite;
+		if ( ! $wp_rewrite ) {
+			require_once ABSPATH . WPINC . '/class-wp-rewrite.php';
+			$wp_rewrite = new WP_Rewrite();
+		}
+		$wp_rewrite->set_permalink_structure( sanitize_text_field( $in['permalink_structure'] ) );
+		$wp_rewrite->flush_rules( true );
+		$done['permalink_structure'] = get_option( 'permalink_structure' );
+	}
+
+	if ( isset( $in['blog_public'] ) ) {
+		update_option( 'blog_public', (int) ! empty( $in['blog_public'] ) );
+		$done['blog_public'] = (int) get_option( 'blog_public' );
+	}
+
+	if ( isset( $in['privacy_page'] ) ) {
+		$id = $in['privacy_page'];
+		if ( ! is_numeric( $id ) ) {
+			$p  = get_page_by_path( sanitize_title( $id ), OBJECT, 'page' );
+			$id = $p ? $p->ID : 0;
+		}
+		update_option( 'wp_page_for_privacy_policy', (int) $id );
+		$done['privacy_page'] = (int) get_option( 'wp_page_for_privacy_policy' );
+	}
+
+	if ( isset( $in['inquiry_email'] ) ) {
+		$email = sanitize_email( $in['inquiry_email'] );
+		if ( is_email( $email ) ) {
+			update_option( 'crlt_inquiry_email', $email );
+			$done['inquiry_email'] = $email;
+		} else {
+			$done['inquiry_email'] = 'rejected: not a valid address';
+		}
+	}
+
+	if ( isset( $in['coming_soon'] ) ) {
+		$name = crlt_hostinger_option_name();
+		$ht   = get_option( $name, array() );
+		if ( is_array( $ht ) ) {
+			$ht['maintenance_mode'] = (bool) $in['coming_soon'];
+			update_option( $name, $ht, false );
+			$done['coming_soon'] = (bool) $ht['maintenance_mode'];
+		} else {
+			$done['coming_soon'] = 'skipped: the Hostinger settings option is not an array';
+		}
+	}
+
+	if ( ! empty( $in['set_front_page'] ) ) {
+		$done['set_front_page'] = crlt_set_front_page() ? (int) get_option( 'page_on_front' ) : 'home page not found';
+	}
+
+	if ( ! empty( $in['install_pages'] ) ) {
+		$done['install_pages'] = crlt_install_pages( false );
+	}
+
+	if ( ! empty( $in['reinstall_pages'] ) ) {
+		$done['reinstall_pages'] = crlt_install_pages( true );
+	}
+
+	if ( ! empty( $in['purge_cache'] ) ) {
+		$purged = array();
+		if ( has_action( 'litespeed_purge_all' ) ) {
+			do_action( 'litespeed_purge_all' );
+			$purged[] = 'litespeed';
+		}
+		wp_cache_flush();
+		$purged[]            = 'object-cache';
+		$done['purge_cache'] = $purged;
+	}
+
+	if ( empty( $done ) ) {
+		return new WP_Error( 'crlt_nothing_to_do', 'No recognised keys in the request body.', array( 'status' => 400 ) );
+	}
+	$done['now'] = crlt_rest_get_site();
+	return $done;
 }

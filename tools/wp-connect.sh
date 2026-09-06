@@ -62,6 +62,10 @@ SITE="$(first 'site url' 'site' 'url' 'website' 'site address' 'wp url')"
 USER="$(first 'wp username' 'username' 'user' 'wp user' 'admin username' 'login')"
 APPPW="$(first 'application password' 'app password' 'apppassword' 'wp application password')"
 
+# Normalise: the REST API lives at the site root, so strip admin/login paths
+# that people naturally copy out of the browser address bar.
+SITE="${SITE%/}"
+SITE="$(printf '%s' "$SITE" | sed -E 's#/(wp-admin|wp-login\.php|wp-admin/index\.php)/?$##I')"
 SITE="${SITE%/}"
 
 mask() { # show only the shape of a secret, never the value
@@ -171,6 +175,14 @@ case "$CMD" in
     body_of "$out" | tr '}' '\n' | sed -n 's/.*"plugin":"\([^"]*\)".*"status":"\([^"]*\)".*"name":"\([^"]*\)".*/  [\2]  \3  (\1)/p'
     ;;
 
+  raw)
+    # raw <path> [method] [json-data]   e.g. raw '/wp/v2/pages?per_page=100'
+    p="${2:-/}"; m="${3:-GET}"; d="${4:-}"
+    out="$(api "$m" "$p" "$d")"
+    echo "HTTP $(status_of "$out")"
+    body_of "$out"
+    ;;
+
   *)
-    echo "Unknown command: $CMD"; echo "Use: check | pages | plugins"; exit 1 ;;
+    echo "Unknown command: $CMD"; echo "Use: check | pages | plugins | raw <path>"; exit 1 ;;
 esac
